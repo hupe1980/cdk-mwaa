@@ -3,8 +3,11 @@
 {
 	"name": "Node.js",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm"
-
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+	"mounts": [
+		"source=${localEnv:HOME}/.aws,target=/home/node/.aws,type=bind,consistency=cached"
+	],
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y python3.11-venv"
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
