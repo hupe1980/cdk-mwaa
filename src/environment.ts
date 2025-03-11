@@ -353,8 +353,24 @@ export class Environment extends Construct {
     }
   }
 
+  /**
+   * Adds a policy statement to the execution role's policy.
+   *
+   * @param statement - The IAM policy statement to add to the role's policy.
+   */
   public addToRolePolicy(statement: iam.PolicyStatement): void {
     this.executionRole.addToPolicy(statement);
+  }
+
+  /**
+   * Sets an Airflow configuration option.
+   *
+   * @param key - The configuration option key.
+   * @param value - The configuration option value.
+   * @returns void
+   */
+  public setAirflowConfigurationOption(key: string, value: any): void {
+    this.airflowConfigurationOptions[key] = value;
   }
 
   /**

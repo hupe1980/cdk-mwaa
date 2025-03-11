@@ -217,9 +217,10 @@ The properties for the MWAA environment.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk-mwaa.Environment.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#cdk-mwaa.Environment.addToRolePolicy">addToRolePolicy</a></code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.addToRolePolicy">addToRolePolicy</a></code> | Adds a policy statement to the execution role's policy. |
 | <code><a href="#cdk-mwaa.Environment.enableEmailBackend">enableEmailBackend</a></code> | Enables the email backend for Airflow to send email notifications. |
 | <code><a href="#cdk-mwaa.Environment.enableSecretsBackend">enableSecretsBackend</a></code> | Enables the use of AWS Secrets Manager as a backend for storing Airflow connections and variables. |
+| <code><a href="#cdk-mwaa.Environment.setAirflowConfigurationOption">setAirflowConfigurationOption</a></code> | Sets an Airflow configuration option. |
 
 ---
 
@@ -237,9 +238,13 @@ Returns a string representation of this construct.
 public addToRolePolicy(statement: PolicyStatement): void
 ```
 
+Adds a policy statement to the execution role's policy.
+
 ###### `statement`<sup>Required</sup> <a name="statement" id="cdk-mwaa.Environment.addToRolePolicy.parameter.statement"></a>
 
 - *Type:* aws-cdk-lib.aws_iam.PolicyStatement
+
+The IAM policy statement to add to the role's policy.
 
 ---
 
@@ -272,6 +277,30 @@ Enables the use of AWS Secrets Manager as a backend for storing Airflow connecti
 - *Type:* <a href="#cdk-mwaa.SecretsBackendOptions">SecretsBackendOptions</a>
 
 The configuration options for Secrets Manager backend.
+
+---
+
+##### `setAirflowConfigurationOption` <a name="setAirflowConfigurationOption" id="cdk-mwaa.Environment.setAirflowConfigurationOption"></a>
+
+```typescript
+public setAirflowConfigurationOption(key: string, value: any): void
+```
+
+Sets an Airflow configuration option.
+
+###### `key`<sup>Required</sup> <a name="key" id="cdk-mwaa.Environment.setAirflowConfigurationOption.parameter.key"></a>
+
+- *Type:* string
+
+The configuration option key.
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="cdk-mwaa.Environment.setAirflowConfigurationOption.parameter.value"></a>
+
+- *Type:* any
+
+The configuration option value.
 
 ---
 
