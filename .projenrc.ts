@@ -14,6 +14,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: ['aws-cdk', 'ts-node'], /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
+  npmIgnoreOptions: {
+    ignorePatterns: [
+      'cdk.out',
+      'cdk.context.json',
+      'example',
+      '.devcontainer',
+    ],
+  },
   publishToPypi: {
     distName: 'cdk-mwaa',
     module: 'cdk_mwaa',
@@ -29,6 +37,6 @@ project.addScripts({
   'example:diff': "yarn cdk diff --app 'ts-node --project tsconfig.dev.json example/main.ts'",
 });
 
-project.gitignore.exclude('cdk.out');
+project.gitignore.exclude('cdk.out', 'cdk.context.json');
 
 project.synth();

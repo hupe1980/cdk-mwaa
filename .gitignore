@@ -50,4 +50,5 @@ junit.xml
 tsconfig.json
 !/API.md
 cdk.out
+cdk.context.json
 !/.projenrc.ts
