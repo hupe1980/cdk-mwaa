@@ -15,7 +15,7 @@ describe('DagStorage Snapshot Tests', () => {
       versioned: true,
       noncurrentVersionExpiration: cdk.Duration.days(30),
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      dagS3Path: 'dags/',
+      dagsConfig: { s3Path: 'dags/' },
       pluginsConfig: { s3Path: 'plugins/' },
       requirementsConfig: { s3Path: 'requirements/' },
       startupScriptConfig: { s3Path: 'startup.sh' },

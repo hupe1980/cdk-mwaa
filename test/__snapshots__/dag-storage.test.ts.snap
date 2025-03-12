@@ -206,6 +206,7 @@ exports[`DagStorage Snapshot Tests matches snapshot 1`] = `
         "BucketEncryption": {
           "ServerSideEncryptionConfiguration": [
             {
+              "BucketKeyEnabled": true,
               "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "AES256",
               },

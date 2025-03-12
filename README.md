@@ -24,6 +24,7 @@ yarn add cdk-mwaa
 Here is an example of how to use the `cdk-mwaa` construct library in your AWS CDK project:
 
 ```typescript
+import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as mwaa from 'cdk-mwaa';
 
@@ -32,7 +33,11 @@ const stack = new cdk.Stack(app, 'MwaaStack');
 
 const dagStorage = new mwaa.DagStorage(stack, 'MyMwaaDagStorage', {
     bucketName: 'my-mwaa-dag-storage',
-    removalPolicy: cdk.RemovalPolicy.DESTROY,
+    dagsConfig: {
+        localPath: path.join(__dirname, 'dags'),
+        s3Path: 'dags/',
+    },
+    // additional configuration options...
 });
 
 new mwaa.Environment(stack, 'MyMwaaEnvironment', {
@@ -61,7 +66,7 @@ const stack = new cdk.Stack(app, 'MwaaStack');
 
 const dagStorage = new mwaa.DagStorage(stack, 'MyMwaaDagStorage', {
     bucketName: 'my-mwaa-dag-storage',
-    removalPolicy: cdk.RemovalPolicy.DESTROY,
+    // additional configuration options...
 });
 
 const environment = new mwaa.Environment(stack, 'MyMwaaEnvironment', {
@@ -72,6 +77,7 @@ const environment = new mwaa.Environment(stack, 'MyMwaaEnvironment', {
     // additional configuration options...
 });
 
+// Enabling Secrets Backend
 environment.enableSecretsBackend();
 
 app.synth();

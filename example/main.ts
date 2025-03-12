@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as mwaa from '../src';
@@ -29,11 +30,15 @@ export class ExampleStack extends cdk.Stack {
     const dagStorage = new mwaa.DagStorage(this, 'MyMwaaDagStorage', {
       bucketName: 'my-mwaa-dag-storage',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      dagsConfig: {
+        localPath: path.join(__dirname, 'dags'),
+        s3Path: 'dags/',
+      },
     });
 
     // Create the MWAA environment
     const environment = new mwaa.Environment(this, 'MyMwaaEnvironment', {
-      environmentName: 'MyMwaaEnv',
+      name: 'MyMwaaEnv',
       dagStorage,
       vpc: vpc,
       airflowVersion: '2.10.3',
