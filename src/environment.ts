@@ -87,7 +87,7 @@ export interface LoggingConfiguration {
 export interface EnvironmentProps {
   readonly airflowVersion: string; // Version of Apache Airflow to use
   readonly airflowConfigurationOptions?: { [key: string]: any }; // Airflow configuration options
-  readonly environmentName: string; // The name of the MWAA environment
+  readonly name: string; // The name of the MWAA environment
   readonly dagStorage: DagStorage; // Storage for the DAGs
   readonly vpc: ec2.IVpc; // VPC where MWAA environment is created
   readonly securityGroups?: ec2.ISecurityGroup[]; // Security groups for the MWAA environment
@@ -140,7 +140,7 @@ export class Environment extends Construct {
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
           actions: ['airflow:PublishMetrics'],
-          resources: [`arn:aws:airflow:${region}:${account}:environment/${props.environmentName}`],
+          resources: [`arn:aws:airflow:${region}:${account}:environment/${props.name}`],
         }),
         new iam.PolicyStatement({
           effect: iam.Effect.DENY,
@@ -164,7 +164,7 @@ export class Environment extends Construct {
             'logs:GetQueryResults',
           ],
           resources: [
-            `arn:aws:logs:${region}:${account}:log-group:airflow-${props.environmentName}-*`,
+            `arn:aws:logs:${region}:${account}:log-group:airflow-${props.name}-*`,
           ],
         }),
         new iam.PolicyStatement({
@@ -198,7 +198,7 @@ export class Environment extends Construct {
     // Cross-service confused deputy prevention
     const conditions = {
       ArnLike: {
-        'aws:SourceArn': `arn:aws:airflow:${region}:${account}:environment/${props.environmentName}`,
+        'aws:SourceArn': `arn:aws:airflow:${region}:${account}:environment/${props.name}`,
       },
       StringEquals: {
         'aws:SourceAccount': account,
@@ -228,7 +228,7 @@ export class Environment extends Construct {
     const environment = new mwaa.CfnEnvironment(this, 'MWAAEnvironment', {
       airflowVersion: props.airflowVersion,
       airflowConfigurationOptions: Lazy.any({ produce: () => this.airflowConfigurationOptions }),
-      name: props.environmentName,
+      name: props.name,
       executionRoleArn: this.executionRole.roleArn,
       sourceBucketArn: props.dagStorage.bucket.bucketArn,
       dagS3Path: props.dagStorage.dagS3Path,

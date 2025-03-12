@@ -1382,7 +1382,7 @@ const environmentProps: EnvironmentProps = { ... }
 | --- | --- | --- |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.airflowVersion">airflowVersion</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.dagStorage">dagStorage</a></code> | <code><a href="#cdk-mwaa.DagStorage">DagStorage</a></code> | *No description.* |
-| <code><a href="#cdk-mwaa.EnvironmentProps.property.environmentName">environmentName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.EnvironmentProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.sizing">sizing</a></code> | <code><a href="#cdk-mwaa.Sizing">Sizing</a></code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.airflowConfigurationOptions">airflowConfigurationOptions</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
@@ -1416,10 +1416,10 @@ public readonly dagStorage: DagStorage;
 
 ---
 
-##### `environmentName`<sup>Required</sup> <a name="environmentName" id="cdk-mwaa.EnvironmentProps.property.environmentName"></a>
+##### `name`<sup>Required</sup> <a name="name" id="cdk-mwaa.EnvironmentProps.property.name"></a>
 
 ```typescript
-public readonly environmentName: string;
+public readonly name: string;
 ```
 
 - *Type:* string

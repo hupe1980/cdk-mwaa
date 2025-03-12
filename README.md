@@ -36,7 +36,7 @@ const dagStorage = new mwaa.DagStorage(stack, 'MyMwaaDagStorage', {
 });
 
 new mwaa.Environment(stack, 'MyMwaaEnvironment', {
-    environmentName: 'my-mwaa-environment',
+    name: 'my-mwaa-environment',
     dagStorage,
     airflowVersion: '2.10.3',
     sizing: mwaa.Sizing.mw1Micro(),
@@ -65,7 +65,7 @@ const dagStorage = new mwaa.DagStorage(stack, 'MyMwaaDagStorage', {
 });
 
 const environment = new mwaa.Environment(stack, 'MyMwaaEnvironment', {
-    environmentName: 'my-mwaa-environment',
+    name: 'my-mwaa-environment',
     dagStorage,
     airflowVersion: '2.10.3',
     sizing: mwaa.Sizing.mw1Micro(),

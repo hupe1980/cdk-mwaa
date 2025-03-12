@@ -94,7 +94,7 @@ export class PublicRoutingMWAA extends Construct {
 
     // Create the Airflow environment
     const environment = new Environment(this, 'Environment', {
-      environmentName: props.environmentName,
+      name: props.environmentName,
       dagStorage,
       vpc,
       webserverAccessMode: WebserverAccessMode.PUBLIC_ONLY, // Public access to the webserver
