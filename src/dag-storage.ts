@@ -1,3 +1,4 @@
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
@@ -133,7 +134,15 @@ export class DagStorage extends Construct {
     // Assign configuration properties
     this.dagS3Path = props.dagsOptions?.s3Path ?? 'dags/';
     if (props.configsOptions) {
-      const { s3Prefix = 'configs/', requirements, plugins, startupScript } = props.configsOptions;
+      const { s3Prefix = 'configs/', requirements, plugins, startupScript, localPath } = props.configsOptions;
+
+      if (localPath && requirements) {
+        // Check if the requirements file contains the Airflow constraints URL
+        const requirementsFilePath = joinPaths(localPath, requirements.name);
+        if (requirementsFilePath && !hasAirflowConstraint(requirementsFilePath)) {
+          throw new Error('The requirements file does not contain the Airflow constraints.');
+        }
+      }
 
       this.requirementsS3Path = joinPaths(s3Prefix, requirements?.name);
       this.requirementsS3ObjectVersion = requirements?.version;
@@ -191,4 +200,22 @@ function joinPaths(prefix: string, name: string | undefined): string | undefined
     return undefined;
   }
   return path.posix.join(prefix, name);
+}
+
+/**
+ * Checks if the requirements.txt file contains the Airflow constraint URL.
+ * @param filePath The local path to the requirements.txt file.
+ * @returns `true` if the constraint is found, otherwise `false`.
+ */
+function hasAirflowConstraint(filePath: string): boolean {
+  try {
+    // Read the file contents
+    const content = fs.readFileSync(filePath, 'utf8');
+
+    // Check if it contains the Airflow constraints URL
+    return content.includes('--constraint "https://raw.githubusercontent.com/apache/airflow/constraints-');
+  } catch (error) {
+    console.error(`Error reading file ${filePath}:`, error);
+    return false; // Return false if the file cannot be read
+  }
 }

@@ -254,6 +254,7 @@ export class Environment extends Construct {
       weeklyMaintenanceWindowStart: weeklyMaintenanceWindowStart,
     });
 
+    environment.node.addDependency(props.dagStorage);
     environment.node.addDependency(this.executionRole);
 
     // Assign environment properties
