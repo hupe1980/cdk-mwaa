@@ -71,6 +71,7 @@ export class DagStorage extends Construct {
     this.bucket = new s3.Bucket(this, 'DagStorageBucket', {
       bucketName: props.bucketName,
       versioned: props.versioned,
+      bucketKeyEnabled: true,
       encryption: s3.BucketEncryption.S3_MANAGED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: props.removalPolicy ?? cdk.RemovalPolicy.RETAIN,
