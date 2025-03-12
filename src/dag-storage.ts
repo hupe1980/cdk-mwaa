@@ -1,31 +1,13 @@
+import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 
 /**
- * Configuration options for DAG storage.
- */
-export interface DagStorageConfigOptions {
-  /** The S3 path where the resource is stored. */
-  readonly s3Path: string;
-
-  /** Optional local path for the resource. */
-  readonly localPath?: string;
-
-  /** Deployment options for DAG storage. */
-  readonly deployOptions?: DagStorageDeployOptions;
-}
-
-export interface DagStorageConfigOptionsWithS3ObjectVersion extends DagStorageConfigOptions {
-  /** S3 object version identifier. */
-  readonly s3ObjectVersion?: string;
-}
-
-/**
  * Options for deploying files to the DAG storage bucket.
  */
-export interface DagStorageDeployOptions {
+export interface DeployOptions {
   /** Patterns to exclude from deployment. */
   readonly exclude?: string[];
 
@@ -37,32 +19,74 @@ export interface DagStorageDeployOptions {
 }
 
 /**
+ * Configuration options for DAG storage.
+ */
+export interface DagsOptions {
+  /** The S3 path where the DAGs are stored. */
+  readonly s3Path?: string;
+
+  /** Optional local path for DAGs before deployment. */
+  readonly localPath?: string;
+
+  /** Deployment options for DAG storage. */
+  readonly deployOptions?: DeployOptions;
+}
+
+/**
+ * Represents a configuration file stored in S3.
+ */
+export interface ConfigFile {
+  /** The name of the configuration file. */
+  readonly name: string;
+
+  /** Optional S3 object version identifier. */
+  readonly version?: string;
+}
+
+/**
+ * Configuration options for storing configuration files in S3.
+ */
+export interface ConfigsOptions {
+  /** The S3 prefix where configuration files are stored. */
+  readonly s3Prefix?: string;
+
+  /** Optional requirements file configuration. */
+  readonly requirements?: ConfigFile;
+
+  /** Optional plugins file configuration. */
+  readonly plugins?: ConfigFile;
+
+  /** Optional startup script file configuration. */
+  readonly startupScript?: ConfigFile;
+
+  /** Optional local path for the configuration files. */
+  readonly localPath?: string;
+
+  /** Deployment options for configuration storage. */
+  readonly deployOptions?: DeployOptions;
+}
+
+/**
  * Properties for configuring the DAG storage bucket.
  */
 export interface DagStorageProps {
-  /** Custom bucket name (optional). */
+  /** Optional custom bucket name. */
   readonly bucketName?: string;
 
-  /** Enable versioning for the bucket. */
+  /** Whether to enable versioning for the bucket. */
   readonly versioned?: boolean;
 
   /** Lifecycle rule for expiring non-current object versions. */
   readonly noncurrentVersionExpiration?: cdk.Duration;
 
-  /** Bucket removal policy. */
+  /** Policy to determine bucket removal behavior. */
   readonly removalPolicy?: cdk.RemovalPolicy;
 
   /** Configuration for DAG storage. */
-  readonly dagsConfig?: DagStorageConfigOptions;
+  readonly dagsOptions?: DagsOptions;
 
-  /** Configuration for plugins storage. */
-  readonly pluginsConfig?: DagStorageConfigOptionsWithS3ObjectVersion;
-
-  /** Configuration for requirements storage. */
-  readonly requirementsConfig?: DagStorageConfigOptionsWithS3ObjectVersion;
-
-  /** Configuration for startup script storage. */
-  readonly startupScriptConfig?: DagStorageConfigOptionsWithS3ObjectVersion;
+  /** Configuration for additional configuration files. */
+  readonly configsOptions?: ConfigsOptions;
 }
 
 /**
@@ -75,14 +99,13 @@ export class DagStorage extends Construct {
   /** S3 path for DAGs. */
   public readonly dagS3Path?: string;
 
-  /** Plugin storage configuration. */
-  public readonly pluginsConfig?: DagStorageConfigOptionsWithS3ObjectVersion;;
-
-  /** Requirements storage configuration. */
-  public readonly requirementsConfig?: DagStorageConfigOptionsWithS3ObjectVersion;;
-
-  /** Startup script storage configuration. */
-  public readonly startupScriptConfig?: DagStorageConfigOptionsWithS3ObjectVersion;;
+  /** S3 paths and object versions for configuration files. */
+  public readonly pluginsS3Path?: string;
+  public readonly pluginsS3ObjectVersion?: string;
+  public readonly requirementsS3Path?: string;
+  public readonly requirementsS3ObjectVersion?: string;
+  public readonly startupScriptS3Path?: string;
+  public readonly startupScriptS3ObjectVersion?: string;
 
   constructor(scope: Construct, id: string, props: DagStorageProps) {
     super(scope, id);
@@ -94,6 +117,7 @@ export class DagStorage extends Construct {
       bucketKeyEnabled: true,
       encryption: s3.BucketEncryption.S3_MANAGED,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      publicReadAccess: false,
       removalPolicy: props.removalPolicy ?? cdk.RemovalPolicy.RETAIN,
       autoDeleteObjects: props.removalPolicy === cdk.RemovalPolicy.DESTROY,
     });
@@ -107,29 +131,64 @@ export class DagStorage extends Construct {
     }
 
     // Assign configuration properties
-    this.dagS3Path = props.dagsConfig?.s3Path ?? 'dags/';
-    this.pluginsConfig = props.pluginsConfig;
-    this.requirementsConfig = props.requirementsConfig;
-    this.startupScriptConfig = props.startupScriptConfig;
+    this.dagS3Path = props.dagsOptions?.s3Path ?? 'dags/';
+    if (props.configsOptions) {
+      const { s3Prefix = 'configs/', requirements, plugins, startupScript } = props.configsOptions;
+
+      this.requirementsS3Path = joinPaths(s3Prefix, requirements?.name);
+      this.requirementsS3ObjectVersion = requirements?.version;
+      this.pluginsS3Path = joinPaths(s3Prefix, plugins?.name);
+      this.pluginsS3ObjectVersion = plugins?.version;
+      this.startupScriptS3Path = joinPaths(s3Prefix, startupScript?.name);
+      this.startupScriptS3ObjectVersion = startupScript?.version;
+    }
 
     // Deploy configurations if local paths are provided
-    this.deployConfig(props.dagsConfig, 'DagsDeployment');
-    this.deployConfig(props.pluginsConfig, 'PluginsDeployment');
-    this.deployConfig(props.requirementsConfig, 'RequirementsDeployment');
-    this.deployConfig(props.startupScriptConfig, 'StartupScriptDeployment');
+    this.deployDags(props.dagsOptions);
+    this.deployConfigs(props.configsOptions);
   }
 
-  private deployConfig(config: DagStorageConfigOptions | undefined, deploymentName: string): void {
+  /**
+   * Deploys DAG files to the S3 bucket if a local path is specified.
+   */
+  private deployDags(config: DagsOptions | undefined): void {
     if (config?.localPath) {
-      new s3deploy.BucketDeployment(this, deploymentName, {
+      new s3deploy.BucketDeployment(this, 'DagsDeployment', {
         sources: [s3deploy.Source.asset(config.localPath, {
           exclude: config.deployOptions?.exclude,
         })],
         destinationBucket: this.bucket,
         destinationKeyPrefix: config.s3Path,
-        retainOnDelete: config.deployOptions?.retainOnDelete ?? false,
+        retainOnDelete: config.deployOptions?.retainOnDelete,
         prune: config.deployOptions?.prune,
       });
     }
   }
+
+  /**
+   * Deploys configuration files to the S3 bucket if a local path is specified.
+   */
+  private deployConfigs(configs: ConfigsOptions | undefined): void {
+    if (configs?.localPath) {
+      new s3deploy.BucketDeployment(this, 'ConfigsDeployment', {
+        sources: [s3deploy.Source.asset(configs.localPath, {
+          exclude: configs.deployOptions?.exclude,
+        })],
+        destinationBucket: this.bucket,
+        destinationKeyPrefix: configs.s3Prefix,
+        retainOnDelete: configs.deployOptions?.retainOnDelete,
+        prune: configs.deployOptions?.prune,
+      });
+    }
+  }
+}
+
+/**
+ * Utility function to join paths safely, ensuring a single '/' separator.
+ */
+function joinPaths(prefix: string, name: string | undefined): string | undefined {
+  if (!name) {
+    return undefined;
+  }
+  return path.posix.join(prefix, name);
 }

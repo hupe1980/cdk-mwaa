@@ -15,10 +15,13 @@ describe('DagStorage Snapshot Tests', () => {
       versioned: true,
       noncurrentVersionExpiration: cdk.Duration.days(30),
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      dagsConfig: { s3Path: 'dags/' },
-      pluginsConfig: { s3Path: 'plugins/' },
-      requirementsConfig: { s3Path: 'requirements/' },
-      startupScriptConfig: { s3Path: 'startup.sh' },
+      dagsOptions: { s3Path: 'dags/' },
+      configsOptions: {
+        s3Prefix: 'configs/',
+        requirements: { name: 'requirements.txt' },
+        plugins: { name: 'plugins.zip' },
+        startupScript: { name: 'startup.sh' },
+      },
     };
 
     new DagStorage(stack, 'DagStorage', props);

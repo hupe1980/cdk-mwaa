@@ -89,9 +89,12 @@ Any object.
 | <code><a href="#cdk-mwaa.DagStorage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#cdk-mwaa.DagStorage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | The S3 bucket storing DAGs, plugins, requirements, and startup scripts. |
 | <code><a href="#cdk-mwaa.DagStorage.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | S3 path for DAGs. |
-| <code><a href="#cdk-mwaa.DagStorage.property.pluginsConfig">pluginsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Plugin storage configuration. |
-| <code><a href="#cdk-mwaa.DagStorage.property.requirementsConfig">requirementsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Requirements storage configuration. |
-| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptConfig">startupScriptConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Startup script storage configuration. |
+| <code><a href="#cdk-mwaa.DagStorage.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.DagStorage.property.pluginsS3Path">pluginsS3Path</a></code> | <code>string</code> | S3 paths and object versions for configuration files. |
+| <code><a href="#cdk-mwaa.DagStorage.property.requirementsS3ObjectVersion">requirementsS3ObjectVersion</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.DagStorage.property.requirementsS3Path">requirementsS3Path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptS3ObjectVersion">startupScriptS3ObjectVersion</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptS3Path">startupScriptS3Path</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -131,39 +134,65 @@ S3 path for DAGs.
 
 ---
 
-##### `pluginsConfig`<sup>Optional</sup> <a name="pluginsConfig" id="cdk-mwaa.DagStorage.property.pluginsConfig"></a>
+##### `pluginsS3ObjectVersion`<sup>Optional</sup> <a name="pluginsS3ObjectVersion" id="cdk-mwaa.DagStorage.property.pluginsS3ObjectVersion"></a>
 
 ```typescript
-public readonly pluginsConfig: DagStorageConfigOptionsWithS3ObjectVersion;
+public readonly pluginsS3ObjectVersion: string;
 ```
 
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
-
-Plugin storage configuration.
+- *Type:* string
 
 ---
 
-##### `requirementsConfig`<sup>Optional</sup> <a name="requirementsConfig" id="cdk-mwaa.DagStorage.property.requirementsConfig"></a>
+##### `pluginsS3Path`<sup>Optional</sup> <a name="pluginsS3Path" id="cdk-mwaa.DagStorage.property.pluginsS3Path"></a>
 
 ```typescript
-public readonly requirementsConfig: DagStorageConfigOptionsWithS3ObjectVersion;
+public readonly pluginsS3Path: string;
 ```
 
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
+- *Type:* string
 
-Requirements storage configuration.
+S3 paths and object versions for configuration files.
 
 ---
 
-##### `startupScriptConfig`<sup>Optional</sup> <a name="startupScriptConfig" id="cdk-mwaa.DagStorage.property.startupScriptConfig"></a>
+##### `requirementsS3ObjectVersion`<sup>Optional</sup> <a name="requirementsS3ObjectVersion" id="cdk-mwaa.DagStorage.property.requirementsS3ObjectVersion"></a>
 
 ```typescript
-public readonly startupScriptConfig: DagStorageConfigOptionsWithS3ObjectVersion;
+public readonly requirementsS3ObjectVersion: string;
 ```
 
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
+- *Type:* string
 
-Startup script storage configuration.
+---
+
+##### `requirementsS3Path`<sup>Optional</sup> <a name="requirementsS3Path" id="cdk-mwaa.DagStorage.property.requirementsS3Path"></a>
+
+```typescript
+public readonly requirementsS3Path: string;
+```
+
+- *Type:* string
+
+---
+
+##### `startupScriptS3ObjectVersion`<sup>Optional</sup> <a name="startupScriptS3ObjectVersion" id="cdk-mwaa.DagStorage.property.startupScriptS3ObjectVersion"></a>
+
+```typescript
+public readonly startupScriptS3ObjectVersion: string;
+```
+
+- *Type:* string
+
+---
+
+##### `startupScriptS3Path`<sup>Optional</sup> <a name="startupScriptS3Path" id="cdk-mwaa.DagStorage.property.startupScriptS3Path"></a>
+
+```typescript
+public readonly startupScriptS3Path: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -1084,53 +1113,183 @@ public readonly defaultPort: Port;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
-### DagStorageConfigOptions <a name="DagStorageConfigOptions" id="cdk-mwaa.DagStorageConfigOptions"></a>
+### ConfigFile <a name="ConfigFile" id="cdk-mwaa.ConfigFile"></a>
+
+Represents a configuration file stored in S3.
+
+#### Initializer <a name="Initializer" id="cdk-mwaa.ConfigFile.Initializer"></a>
+
+```typescript
+import { ConfigFile } from 'cdk-mwaa'
+
+const configFile: ConfigFile = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.ConfigFile.property.name">name</a></code> | <code>string</code> | The name of the configuration file. |
+| <code><a href="#cdk-mwaa.ConfigFile.property.version">version</a></code> | <code>string</code> | Optional S3 object version identifier. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk-mwaa.ConfigFile.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the configuration file.
+
+---
+
+##### `version`<sup>Optional</sup> <a name="version" id="cdk-mwaa.ConfigFile.property.version"></a>
+
+```typescript
+public readonly version: string;
+```
+
+- *Type:* string
+
+Optional S3 object version identifier.
+
+---
+
+### ConfigsOptions <a name="ConfigsOptions" id="cdk-mwaa.ConfigsOptions"></a>
+
+Configuration options for storing configuration files in S3.
+
+#### Initializer <a name="Initializer" id="cdk-mwaa.ConfigsOptions.Initializer"></a>
+
+```typescript
+import { ConfigsOptions } from 'cdk-mwaa'
+
+const configsOptions: ConfigsOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.ConfigsOptions.property.deployOptions">deployOptions</a></code> | <code><a href="#cdk-mwaa.DeployOptions">DeployOptions</a></code> | Deployment options for configuration storage. |
+| <code><a href="#cdk-mwaa.ConfigsOptions.property.localPath">localPath</a></code> | <code>string</code> | Optional local path for the configuration files. |
+| <code><a href="#cdk-mwaa.ConfigsOptions.property.plugins">plugins</a></code> | <code><a href="#cdk-mwaa.ConfigFile">ConfigFile</a></code> | Optional plugins file configuration. |
+| <code><a href="#cdk-mwaa.ConfigsOptions.property.requirements">requirements</a></code> | <code><a href="#cdk-mwaa.ConfigFile">ConfigFile</a></code> | Optional requirements file configuration. |
+| <code><a href="#cdk-mwaa.ConfigsOptions.property.s3Prefix">s3Prefix</a></code> | <code>string</code> | The S3 prefix where configuration files are stored. |
+| <code><a href="#cdk-mwaa.ConfigsOptions.property.startupScript">startupScript</a></code> | <code><a href="#cdk-mwaa.ConfigFile">ConfigFile</a></code> | Optional startup script file configuration. |
+
+---
+
+##### `deployOptions`<sup>Optional</sup> <a name="deployOptions" id="cdk-mwaa.ConfigsOptions.property.deployOptions"></a>
+
+```typescript
+public readonly deployOptions: DeployOptions;
+```
+
+- *Type:* <a href="#cdk-mwaa.DeployOptions">DeployOptions</a>
+
+Deployment options for configuration storage.
+
+---
+
+##### `localPath`<sup>Optional</sup> <a name="localPath" id="cdk-mwaa.ConfigsOptions.property.localPath"></a>
+
+```typescript
+public readonly localPath: string;
+```
+
+- *Type:* string
+
+Optional local path for the configuration files.
+
+---
+
+##### `plugins`<sup>Optional</sup> <a name="plugins" id="cdk-mwaa.ConfigsOptions.property.plugins"></a>
+
+```typescript
+public readonly plugins: ConfigFile;
+```
+
+- *Type:* <a href="#cdk-mwaa.ConfigFile">ConfigFile</a>
+
+Optional plugins file configuration.
+
+---
+
+##### `requirements`<sup>Optional</sup> <a name="requirements" id="cdk-mwaa.ConfigsOptions.property.requirements"></a>
+
+```typescript
+public readonly requirements: ConfigFile;
+```
+
+- *Type:* <a href="#cdk-mwaa.ConfigFile">ConfigFile</a>
+
+Optional requirements file configuration.
+
+---
+
+##### `s3Prefix`<sup>Optional</sup> <a name="s3Prefix" id="cdk-mwaa.ConfigsOptions.property.s3Prefix"></a>
+
+```typescript
+public readonly s3Prefix: string;
+```
+
+- *Type:* string
+
+The S3 prefix where configuration files are stored.
+
+---
+
+##### `startupScript`<sup>Optional</sup> <a name="startupScript" id="cdk-mwaa.ConfigsOptions.property.startupScript"></a>
+
+```typescript
+public readonly startupScript: ConfigFile;
+```
+
+- *Type:* <a href="#cdk-mwaa.ConfigFile">ConfigFile</a>
+
+Optional startup script file configuration.
+
+---
+
+### DagsOptions <a name="DagsOptions" id="cdk-mwaa.DagsOptions"></a>
 
 Configuration options for DAG storage.
 
-#### Initializer <a name="Initializer" id="cdk-mwaa.DagStorageConfigOptions.Initializer"></a>
+#### Initializer <a name="Initializer" id="cdk-mwaa.DagsOptions.Initializer"></a>
 
 ```typescript
-import { DagStorageConfigOptions } from 'cdk-mwaa'
+import { DagsOptions } from 'cdk-mwaa'
 
-const dagStorageConfigOptions: DagStorageConfigOptions = { ... }
+const dagsOptions: DagsOptions = { ... }
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptions.property.s3Path">s3Path</a></code> | <code>string</code> | The S3 path where the resource is stored. |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptions.property.deployOptions">deployOptions</a></code> | <code><a href="#cdk-mwaa.DagStorageDeployOptions">DagStorageDeployOptions</a></code> | Deployment options for DAG storage. |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptions.property.localPath">localPath</a></code> | <code>string</code> | Optional local path for the resource. |
+| <code><a href="#cdk-mwaa.DagsOptions.property.deployOptions">deployOptions</a></code> | <code><a href="#cdk-mwaa.DeployOptions">DeployOptions</a></code> | Deployment options for DAG storage. |
+| <code><a href="#cdk-mwaa.DagsOptions.property.localPath">localPath</a></code> | <code>string</code> | Optional local path for DAGs before deployment. |
+| <code><a href="#cdk-mwaa.DagsOptions.property.s3Path">s3Path</a></code> | <code>string</code> | The S3 path where the DAGs are stored. |
 
 ---
 
-##### `s3Path`<sup>Required</sup> <a name="s3Path" id="cdk-mwaa.DagStorageConfigOptions.property.s3Path"></a>
+##### `deployOptions`<sup>Optional</sup> <a name="deployOptions" id="cdk-mwaa.DagsOptions.property.deployOptions"></a>
 
 ```typescript
-public readonly s3Path: string;
+public readonly deployOptions: DeployOptions;
 ```
 
-- *Type:* string
-
-The S3 path where the resource is stored.
-
----
-
-##### `deployOptions`<sup>Optional</sup> <a name="deployOptions" id="cdk-mwaa.DagStorageConfigOptions.property.deployOptions"></a>
-
-```typescript
-public readonly deployOptions: DagStorageDeployOptions;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageDeployOptions">DagStorageDeployOptions</a>
+- *Type:* <a href="#cdk-mwaa.DeployOptions">DeployOptions</a>
 
 Deployment options for DAG storage.
 
 ---
 
-##### `localPath`<sup>Optional</sup> <a name="localPath" id="cdk-mwaa.DagStorageConfigOptions.property.localPath"></a>
+##### `localPath`<sup>Optional</sup> <a name="localPath" id="cdk-mwaa.DagsOptions.property.localPath"></a>
 
 ```typescript
 public readonly localPath: string;
@@ -1138,32 +1297,11 @@ public readonly localPath: string;
 
 - *Type:* string
 
-Optional local path for the resource.
+Optional local path for DAGs before deployment.
 
 ---
 
-### DagStorageConfigOptionsWithS3ObjectVersion <a name="DagStorageConfigOptionsWithS3ObjectVersion" id="cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion"></a>
-
-#### Initializer <a name="Initializer" id="cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.Initializer"></a>
-
-```typescript
-import { DagStorageConfigOptionsWithS3ObjectVersion } from 'cdk-mwaa'
-
-const dagStorageConfigOptionsWithS3ObjectVersion: DagStorageConfigOptionsWithS3ObjectVersion = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.s3Path">s3Path</a></code> | <code>string</code> | The S3 path where the resource is stored. |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.deployOptions">deployOptions</a></code> | <code><a href="#cdk-mwaa.DagStorageDeployOptions">DagStorageDeployOptions</a></code> | Deployment options for DAG storage. |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.localPath">localPath</a></code> | <code>string</code> | Optional local path for the resource. |
-| <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.s3ObjectVersion">s3ObjectVersion</a></code> | <code>string</code> | S3 object version identifier. |
-
----
-
-##### `s3Path`<sup>Required</sup> <a name="s3Path" id="cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.s3Path"></a>
+##### `s3Path`<sup>Optional</sup> <a name="s3Path" id="cdk-mwaa.DagsOptions.property.s3Path"></a>
 
 ```typescript
 public readonly s3Path: string;
@@ -1171,101 +1309,7 @@ public readonly s3Path: string;
 
 - *Type:* string
 
-The S3 path where the resource is stored.
-
----
-
-##### `deployOptions`<sup>Optional</sup> <a name="deployOptions" id="cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.deployOptions"></a>
-
-```typescript
-public readonly deployOptions: DagStorageDeployOptions;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageDeployOptions">DagStorageDeployOptions</a>
-
-Deployment options for DAG storage.
-
----
-
-##### `localPath`<sup>Optional</sup> <a name="localPath" id="cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.localPath"></a>
-
-```typescript
-public readonly localPath: string;
-```
-
-- *Type:* string
-
-Optional local path for the resource.
-
----
-
-##### `s3ObjectVersion`<sup>Optional</sup> <a name="s3ObjectVersion" id="cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion.property.s3ObjectVersion"></a>
-
-```typescript
-public readonly s3ObjectVersion: string;
-```
-
-- *Type:* string
-
-S3 object version identifier.
-
----
-
-### DagStorageDeployOptions <a name="DagStorageDeployOptions" id="cdk-mwaa.DagStorageDeployOptions"></a>
-
-Options for deploying files to the DAG storage bucket.
-
-#### Initializer <a name="Initializer" id="cdk-mwaa.DagStorageDeployOptions.Initializer"></a>
-
-```typescript
-import { DagStorageDeployOptions } from 'cdk-mwaa'
-
-const dagStorageDeployOptions: DagStorageDeployOptions = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#cdk-mwaa.DagStorageDeployOptions.property.exclude">exclude</a></code> | <code>string[]</code> | Patterns to exclude from deployment. |
-| <code><a href="#cdk-mwaa.DagStorageDeployOptions.property.prune">prune</a></code> | <code>boolean</code> | Whether to remove outdated file versions. |
-| <code><a href="#cdk-mwaa.DagStorageDeployOptions.property.retainOnDelete">retainOnDelete</a></code> | <code>boolean</code> | Whether to retain files upon stack deletion. |
-
----
-
-##### `exclude`<sup>Optional</sup> <a name="exclude" id="cdk-mwaa.DagStorageDeployOptions.property.exclude"></a>
-
-```typescript
-public readonly exclude: string[];
-```
-
-- *Type:* string[]
-
-Patterns to exclude from deployment.
-
----
-
-##### `prune`<sup>Optional</sup> <a name="prune" id="cdk-mwaa.DagStorageDeployOptions.property.prune"></a>
-
-```typescript
-public readonly prune: boolean;
-```
-
-- *Type:* boolean
-
-Whether to remove outdated file versions.
-
----
-
-##### `retainOnDelete`<sup>Optional</sup> <a name="retainOnDelete" id="cdk-mwaa.DagStorageDeployOptions.property.retainOnDelete"></a>
-
-```typescript
-public readonly retainOnDelete: boolean;
-```
-
-- *Type:* boolean
-
-Whether to retain files upon stack deletion.
+The S3 path where the DAGs are stored.
 
 ---
 
@@ -1285,14 +1329,12 @@ const dagStorageProps: DagStorageProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.bucketName">bucketName</a></code> | <code>string</code> | Custom bucket name (optional). |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.dagsConfig">dagsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptions">DagStorageConfigOptions</a></code> | Configuration for DAG storage. |
+| <code><a href="#cdk-mwaa.DagStorageProps.property.bucketName">bucketName</a></code> | <code>string</code> | Optional custom bucket name. |
+| <code><a href="#cdk-mwaa.DagStorageProps.property.configsOptions">configsOptions</a></code> | <code><a href="#cdk-mwaa.ConfigsOptions">ConfigsOptions</a></code> | Configuration for additional configuration files. |
+| <code><a href="#cdk-mwaa.DagStorageProps.property.dagsOptions">dagsOptions</a></code> | <code><a href="#cdk-mwaa.DagsOptions">DagsOptions</a></code> | Configuration for DAG storage. |
 | <code><a href="#cdk-mwaa.DagStorageProps.property.noncurrentVersionExpiration">noncurrentVersionExpiration</a></code> | <code>aws-cdk-lib.Duration</code> | Lifecycle rule for expiring non-current object versions. |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.pluginsConfig">pluginsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Configuration for plugins storage. |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Bucket removal policy. |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.requirementsConfig">requirementsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Configuration for requirements storage. |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.startupScriptConfig">startupScriptConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Configuration for startup script storage. |
-| <code><a href="#cdk-mwaa.DagStorageProps.property.versioned">versioned</a></code> | <code>boolean</code> | Enable versioning for the bucket. |
+| <code><a href="#cdk-mwaa.DagStorageProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Policy to determine bucket removal behavior. |
+| <code><a href="#cdk-mwaa.DagStorageProps.property.versioned">versioned</a></code> | <code>boolean</code> | Whether to enable versioning for the bucket. |
 
 ---
 
@@ -1304,17 +1346,29 @@ public readonly bucketName: string;
 
 - *Type:* string
 
-Custom bucket name (optional).
+Optional custom bucket name.
 
 ---
 
-##### `dagsConfig`<sup>Optional</sup> <a name="dagsConfig" id="cdk-mwaa.DagStorageProps.property.dagsConfig"></a>
+##### `configsOptions`<sup>Optional</sup> <a name="configsOptions" id="cdk-mwaa.DagStorageProps.property.configsOptions"></a>
 
 ```typescript
-public readonly dagsConfig: DagStorageConfigOptions;
+public readonly configsOptions: ConfigsOptions;
 ```
 
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptions">DagStorageConfigOptions</a>
+- *Type:* <a href="#cdk-mwaa.ConfigsOptions">ConfigsOptions</a>
+
+Configuration for additional configuration files.
+
+---
+
+##### `dagsOptions`<sup>Optional</sup> <a name="dagsOptions" id="cdk-mwaa.DagStorageProps.property.dagsOptions"></a>
+
+```typescript
+public readonly dagsOptions: DagsOptions;
+```
+
+- *Type:* <a href="#cdk-mwaa.DagsOptions">DagsOptions</a>
 
 Configuration for DAG storage.
 
@@ -1332,18 +1386,6 @@ Lifecycle rule for expiring non-current object versions.
 
 ---
 
-##### `pluginsConfig`<sup>Optional</sup> <a name="pluginsConfig" id="cdk-mwaa.DagStorageProps.property.pluginsConfig"></a>
-
-```typescript
-public readonly pluginsConfig: DagStorageConfigOptionsWithS3ObjectVersion;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
-
-Configuration for plugins storage.
-
----
-
 ##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="cdk-mwaa.DagStorageProps.property.removalPolicy"></a>
 
 ```typescript
@@ -1352,31 +1394,7 @@ public readonly removalPolicy: RemovalPolicy;
 
 - *Type:* aws-cdk-lib.RemovalPolicy
 
-Bucket removal policy.
-
----
-
-##### `requirementsConfig`<sup>Optional</sup> <a name="requirementsConfig" id="cdk-mwaa.DagStorageProps.property.requirementsConfig"></a>
-
-```typescript
-public readonly requirementsConfig: DagStorageConfigOptionsWithS3ObjectVersion;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
-
-Configuration for requirements storage.
-
----
-
-##### `startupScriptConfig`<sup>Optional</sup> <a name="startupScriptConfig" id="cdk-mwaa.DagStorageProps.property.startupScriptConfig"></a>
-
-```typescript
-public readonly startupScriptConfig: DagStorageConfigOptionsWithS3ObjectVersion;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
-
-Configuration for startup script storage.
+Policy to determine bucket removal behavior.
 
 ---
 
@@ -1388,7 +1406,65 @@ public readonly versioned: boolean;
 
 - *Type:* boolean
 
-Enable versioning for the bucket.
+Whether to enable versioning for the bucket.
+
+---
+
+### DeployOptions <a name="DeployOptions" id="cdk-mwaa.DeployOptions"></a>
+
+Options for deploying files to the DAG storage bucket.
+
+#### Initializer <a name="Initializer" id="cdk-mwaa.DeployOptions.Initializer"></a>
+
+```typescript
+import { DeployOptions } from 'cdk-mwaa'
+
+const deployOptions: DeployOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.DeployOptions.property.exclude">exclude</a></code> | <code>string[]</code> | Patterns to exclude from deployment. |
+| <code><a href="#cdk-mwaa.DeployOptions.property.prune">prune</a></code> | <code>boolean</code> | Whether to remove outdated file versions. |
+| <code><a href="#cdk-mwaa.DeployOptions.property.retainOnDelete">retainOnDelete</a></code> | <code>boolean</code> | Whether to retain files upon stack deletion. |
+
+---
+
+##### `exclude`<sup>Optional</sup> <a name="exclude" id="cdk-mwaa.DeployOptions.property.exclude"></a>
+
+```typescript
+public readonly exclude: string[];
+```
+
+- *Type:* string[]
+
+Patterns to exclude from deployment.
+
+---
+
+##### `prune`<sup>Optional</sup> <a name="prune" id="cdk-mwaa.DeployOptions.property.prune"></a>
+
+```typescript
+public readonly prune: boolean;
+```
+
+- *Type:* boolean
+
+Whether to remove outdated file versions.
+
+---
+
+##### `retainOnDelete`<sup>Optional</sup> <a name="retainOnDelete" id="cdk-mwaa.DeployOptions.property.retainOnDelete"></a>
+
+```typescript
+public readonly retainOnDelete: boolean;
+```
+
+- *Type:* boolean
+
+Whether to retain files upon stack deletion.
 
 ---
 
@@ -1734,12 +1810,10 @@ const mWAAProps: MWAAProps = { ... }
 | <code><a href="#cdk-mwaa.MWAAProps.property.environmentName">environmentName</a></code> | <code>string</code> | The name of the Airflow environment. |
 | <code><a href="#cdk-mwaa.MWAAProps.property.airflowConfigurationOptions">airflowConfigurationOptions</a></code> | <code>{[ key: string ]: any}</code> | Airflow configuration options as key-value pairs. |
 | <code><a href="#cdk-mwaa.MWAAProps.property.bucketName">bucketName</a></code> | <code>string</code> | The name of the S3 bucket used for storing DAGs. |
-| <code><a href="#cdk-mwaa.MWAAProps.property.dagsConfig">dagsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptions">DagStorageConfigOptions</a></code> | Configuration for DAG storage. |
-| <code><a href="#cdk-mwaa.MWAAProps.property.pluginsConfig">pluginsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Configuration for plugins storage. |
+| <code><a href="#cdk-mwaa.MWAAProps.property.configsOptions">configsOptions</a></code> | <code><a href="#cdk-mwaa.ConfigsOptions">ConfigsOptions</a></code> | Configuration for plugins storage. |
+| <code><a href="#cdk-mwaa.MWAAProps.property.dagsOptions">dagsOptions</a></code> | <code><a href="#cdk-mwaa.DagsOptions">DagsOptions</a></code> | Configuration for DAG storage. |
 | <code><a href="#cdk-mwaa.MWAAProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for the MWAA resources. |
-| <code><a href="#cdk-mwaa.MWAAProps.property.requirementsConfig">requirementsConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Configuration for requirements storage. |
 | <code><a href="#cdk-mwaa.MWAAProps.property.sizing">sizing</a></code> | <code><a href="#cdk-mwaa.Sizing">Sizing</a></code> | Optional sizing configuration for the MWAA environment. |
-| <code><a href="#cdk-mwaa.MWAAProps.property.startupScriptConfig">startupScriptConfig</a></code> | <code><a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a></code> | Configuration for startup script storage. |
 | <code><a href="#cdk-mwaa.MWAAProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC in which to deploy the MWAA environment. |
 
 ---
@@ -1796,27 +1870,27 @@ If not provided, a default bucket is created.
 
 ---
 
-##### `dagsConfig`<sup>Optional</sup> <a name="dagsConfig" id="cdk-mwaa.MWAAProps.property.dagsConfig"></a>
+##### `configsOptions`<sup>Optional</sup> <a name="configsOptions" id="cdk-mwaa.MWAAProps.property.configsOptions"></a>
 
 ```typescript
-public readonly dagsConfig: DagStorageConfigOptions;
+public readonly configsOptions: ConfigsOptions;
 ```
 
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptions">DagStorageConfigOptions</a>
+- *Type:* <a href="#cdk-mwaa.ConfigsOptions">ConfigsOptions</a>
 
-Configuration for DAG storage.
+Configuration for plugins storage.
 
 ---
 
-##### `pluginsConfig`<sup>Optional</sup> <a name="pluginsConfig" id="cdk-mwaa.MWAAProps.property.pluginsConfig"></a>
+##### `dagsOptions`<sup>Optional</sup> <a name="dagsOptions" id="cdk-mwaa.MWAAProps.property.dagsOptions"></a>
 
 ```typescript
-public readonly pluginsConfig: DagStorageConfigOptionsWithS3ObjectVersion;
+public readonly dagsOptions: DagsOptions;
 ```
 
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
+- *Type:* <a href="#cdk-mwaa.DagsOptions">DagsOptions</a>
 
-Configuration for plugins storage.
+Configuration for DAG storage.
 
 ---
 
@@ -1835,18 +1909,6 @@ Defaults to 'RETAIN' if not specified.
 
 ---
 
-##### `requirementsConfig`<sup>Optional</sup> <a name="requirementsConfig" id="cdk-mwaa.MWAAProps.property.requirementsConfig"></a>
-
-```typescript
-public readonly requirementsConfig: DagStorageConfigOptionsWithS3ObjectVersion;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
-
-Configuration for requirements storage.
-
----
-
 ##### `sizing`<sup>Optional</sup> <a name="sizing" id="cdk-mwaa.MWAAProps.property.sizing"></a>
 
 ```typescript
@@ -1858,18 +1920,6 @@ public readonly sizing: Sizing;
 Optional sizing configuration for the MWAA environment.
 
 Defines the compute resources.
-
----
-
-##### `startupScriptConfig`<sup>Optional</sup> <a name="startupScriptConfig" id="cdk-mwaa.MWAAProps.property.startupScriptConfig"></a>
-
-```typescript
-public readonly startupScriptConfig: DagStorageConfigOptionsWithS3ObjectVersion;
-```
-
-- *Type:* <a href="#cdk-mwaa.DagStorageConfigOptionsWithS3ObjectVersion">DagStorageConfigOptionsWithS3ObjectVersion</a>
-
-Configuration for startup script storage.
 
 ---
 

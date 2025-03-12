@@ -33,10 +33,10 @@ const stack = new cdk.Stack(app, 'MwaaStack');
 
 const dagStorage = new mwaa.DagStorage(stack, 'MyMwaaDagStorage', {
     bucketName: 'my-mwaa-dag-storage',
-    dagsConfig: {
+    dagsOptions: {
         localPath: path.join(__dirname, 'dags'),
         s3Path: 'dags/',
-    },
+      },
     // additional configuration options...
 });
 

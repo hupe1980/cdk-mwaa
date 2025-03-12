@@ -30,9 +30,14 @@ export class ExampleStack extends cdk.Stack {
     const dagStorage = new mwaa.DagStorage(this, 'MyMwaaDagStorage', {
       bucketName: 'my-mwaa-dag-storage',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      dagsConfig: {
+      dagsOptions: {
         localPath: path.join(__dirname, 'dags'),
         s3Path: 'dags/',
+      },
+      configsOptions: {
+        localPath: path.join(__dirname, 'configs'),
+        s3Prefix: 'configs/',
+        requirements: { name: 'requirements.txt' },
       },
     });
 

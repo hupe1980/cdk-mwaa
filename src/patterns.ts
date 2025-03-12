@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 
-import { DagStorage, DagStorageConfigOptions, DagStorageConfigOptionsWithS3ObjectVersion } from './dag-storage';
+import { DagStorage, DagsOptions, ConfigsOptions } from './dag-storage';
 import { Environment, WebserverAccessMode } from './environment';
 import { Sizing } from './sizing';
 
@@ -39,16 +39,10 @@ export interface MWAAProps {
   readonly bucketName?: string;
 
   /** Configuration for DAG storage. */
-  readonly dagsConfig?: DagStorageConfigOptions;
+  readonly dagsOptions?: DagsOptions;
 
   /** Configuration for plugins storage. */
-  readonly pluginsConfig?: DagStorageConfigOptionsWithS3ObjectVersion;
-
-  /** Configuration for requirements storage. */
-  readonly requirementsConfig?: DagStorageConfigOptionsWithS3ObjectVersion;
-
-  /** Configuration for startup script storage. */
-  readonly startupScriptConfig?: DagStorageConfigOptionsWithS3ObjectVersion;
+  readonly configsOptions?: ConfigsOptions;
 
   /**
    * Airflow configuration options as key-value pairs.
@@ -94,10 +88,8 @@ export class PublicRoutingMWAA extends Construct {
     // Create the DAG storage (S3 bucket) for the MWAA environment
     const dagStorage = new DagStorage(this, 'DagStorage', {
       bucketName: props.bucketName,
-      dagsConfig: props.dagsConfig,
-      pluginsConfig: props.pluginsConfig,
-      requirementsConfig: props.requirementsConfig,
-      startupScriptConfig: props.startupScriptConfig,
+      dagsOptions: props.dagsOptions,
+      configsOptions: props.configsOptions,
       removalPolicy: props.removalPolicy ?? cdk.RemovalPolicy.RETAIN,
     });
 
