@@ -4,6 +4,8 @@
 
 ### BaseVpc <a name="BaseVpc" id="cdk-mwaa.BaseVpc"></a>
 
+Abstract base class for creating a VPC with common configurations.
+
 #### Initializers <a name="Initializers" id="cdk-mwaa.BaseVpc.Initializer"></a>
 
 ```typescript
@@ -375,7 +377,7 @@ Prefer to use `Vpc.fromLookup()` instead.
 | <code><a href="#cdk-mwaa.BaseVpc.property.vpcIpv6CidrBlocks">vpcIpv6CidrBlocks</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#cdk-mwaa.BaseVpc.property.internetGatewayId">internetGatewayId</a></code> | <code>string</code> | Internet Gateway for the VPC. |
 | <code><a href="#cdk-mwaa.BaseVpc.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | Returns the id of the VPN Gateway (if enabled). |
-| <code><a href="#cdk-mwaa.BaseVpc.property.s3VpcEndpoint">s3VpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.GatewayVpcEndpoint</code> | *No description.* |
+| <code><a href="#cdk-mwaa.BaseVpc.property.s3VpcEndpoint">s3VpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.GatewayVpcEndpoint</code> | S3 Gateway VPC Endpoint. |
 
 ---
 
@@ -616,6 +618,8 @@ public readonly s3VpcEndpoint: GatewayVpcEndpoint;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.GatewayVpcEndpoint
+
+S3 Gateway VPC Endpoint.
 
 ---
 
@@ -1164,6 +1168,8 @@ public readonly workerLogsGroupArn: string;
 
 ### PrivateRoutingVpc <a name="PrivateRoutingVpc" id="cdk-mwaa.PrivateRoutingVpc"></a>
 
+A VPC with only private isolated subnets, intended for internal workloads.
+
 #### Initializers <a name="Initializers" id="cdk-mwaa.PrivateRoutingVpc.Initializer"></a>
 
 ```typescript
@@ -1535,7 +1541,11 @@ Prefer to use `Vpc.fromLookup()` instead.
 | <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.vpcIpv6CidrBlocks">vpcIpv6CidrBlocks</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.internetGatewayId">internetGatewayId</a></code> | <code>string</code> | Internet Gateway for the VPC. |
 | <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | Returns the id of the VPN Gateway (if enabled). |
-| <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.s3VpcEndpoint">s3VpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.GatewayVpcEndpoint</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.s3VpcEndpoint">s3VpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.GatewayVpcEndpoint</code> | S3 Gateway VPC Endpoint. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.kmsVpcEndpoint">kmsVpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint</code> | Interface VPC Endpoint for KMS. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.logsVpcEndpoint">logsVpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint</code> | Interface VPC Endpoint for CloudWatch Logs. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.monitoringVpcEndpoint">monitoringVpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint</code> | Interface VPC Endpoint for CloudWatch Monitoring. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpc.property.sqsVpcEndpoint">sqsVpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint</code> | Interface VPC Endpoint for SQS. |
 
 ---
 
@@ -1777,6 +1787,56 @@ public readonly s3VpcEndpoint: GatewayVpcEndpoint;
 
 - *Type:* aws-cdk-lib.aws_ec2.GatewayVpcEndpoint
 
+S3 Gateway VPC Endpoint.
+
+---
+
+##### `kmsVpcEndpoint`<sup>Required</sup> <a name="kmsVpcEndpoint" id="cdk-mwaa.PrivateRoutingVpc.property.kmsVpcEndpoint"></a>
+
+```typescript
+public readonly kmsVpcEndpoint: InterfaceVpcEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint
+
+Interface VPC Endpoint for KMS.
+
+---
+
+##### `logsVpcEndpoint`<sup>Required</sup> <a name="logsVpcEndpoint" id="cdk-mwaa.PrivateRoutingVpc.property.logsVpcEndpoint"></a>
+
+```typescript
+public readonly logsVpcEndpoint: InterfaceVpcEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint
+
+Interface VPC Endpoint for CloudWatch Logs.
+
+---
+
+##### `monitoringVpcEndpoint`<sup>Required</sup> <a name="monitoringVpcEndpoint" id="cdk-mwaa.PrivateRoutingVpc.property.monitoringVpcEndpoint"></a>
+
+```typescript
+public readonly monitoringVpcEndpoint: InterfaceVpcEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint
+
+Interface VPC Endpoint for CloudWatch Monitoring.
+
+---
+
+##### `sqsVpcEndpoint`<sup>Required</sup> <a name="sqsVpcEndpoint" id="cdk-mwaa.PrivateRoutingVpc.property.sqsVpcEndpoint"></a>
+
+```typescript
+public readonly sqsVpcEndpoint: InterfaceVpcEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint
+
+Interface VPC Endpoint for SQS.
+
 ---
 
 #### Constants <a name="Constants" id="Constants"></a>
@@ -1938,6 +1998,8 @@ The tree node.
 
 
 ### PublicRoutingVpc <a name="PublicRoutingVpc" id="cdk-mwaa.PublicRoutingVpc"></a>
+
+A VPC with public and private subnets, supporting internet access.
 
 #### Initializers <a name="Initializers" id="cdk-mwaa.PublicRoutingVpc.Initializer"></a>
 
@@ -2310,7 +2372,7 @@ Prefer to use `Vpc.fromLookup()` instead.
 | <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcIpv6CidrBlocks">vpcIpv6CidrBlocks</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#cdk-mwaa.PublicRoutingVpc.property.internetGatewayId">internetGatewayId</a></code> | <code>string</code> | Internet Gateway for the VPC. |
 | <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | Returns the id of the VPN Gateway (if enabled). |
-| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.s3VpcEndpoint">s3VpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.GatewayVpcEndpoint</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.s3VpcEndpoint">s3VpcEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.GatewayVpcEndpoint</code> | S3 Gateway VPC Endpoint. |
 
 ---
 
@@ -2551,6 +2613,8 @@ public readonly s3VpcEndpoint: GatewayVpcEndpoint;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.GatewayVpcEndpoint
+
+S3 Gateway VPC Endpoint.
 
 ---
 
@@ -3131,6 +3195,8 @@ public readonly defaultPort: Port;
 
 ### BaseVpcProps <a name="BaseVpcProps" id="cdk-mwaa.BaseVpcProps"></a>
 
+Properties for creating a base VPC.
+
 #### Initializer <a name="Initializer" id="cdk-mwaa.BaseVpcProps.Initializer"></a>
 
 ```typescript
@@ -3143,11 +3209,11 @@ const baseVpcProps: BaseVpcProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.BaseVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | *No description.* |
-| <code><a href="#cdk-mwaa.BaseVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#cdk-mwaa.BaseVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.BaseVpcProps.property.createInternetGateway">createInternetGateway</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#cdk-mwaa.BaseVpcProps.property.subnetConfiguration">subnetConfiguration</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetConfiguration[]</code> | *No description.* |
+| <code><a href="#cdk-mwaa.BaseVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | IP address allocation strategy for the VPC. |
+| <code><a href="#cdk-mwaa.BaseVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | Number of NAT gateways to create. |
+| <code><a href="#cdk-mwaa.BaseVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | Optional name for the VPC. |
+| <code><a href="#cdk-mwaa.BaseVpcProps.property.createInternetGateway">createInternetGateway</a></code> | <code>boolean</code> | Whether to create an Internet Gateway for public access. |
+| <code><a href="#cdk-mwaa.BaseVpcProps.property.subnetConfiguration">subnetConfiguration</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetConfiguration[]</code> | Subnet configuration for the VPC. |
 
 ---
 
@@ -3159,6 +3225,8 @@ public readonly ipAddresses: IIpAddresses;
 
 - *Type:* aws-cdk-lib.aws_ec2.IIpAddresses
 
+IP address allocation strategy for the VPC.
+
 ---
 
 ##### `natGateways`<sup>Optional</sup> <a name="natGateways" id="cdk-mwaa.BaseVpcProps.property.natGateways"></a>
@@ -3168,6 +3236,8 @@ public readonly natGateways: number;
 ```
 
 - *Type:* number
+
+Number of NAT gateways to create.
 
 ---
 
@@ -3179,6 +3249,8 @@ public readonly vpcName: string;
 
 - *Type:* string
 
+Optional name for the VPC.
+
 ---
 
 ##### `createInternetGateway`<sup>Required</sup> <a name="createInternetGateway" id="cdk-mwaa.BaseVpcProps.property.createInternetGateway"></a>
@@ -3188,6 +3260,8 @@ public readonly createInternetGateway: boolean;
 ```
 
 - *Type:* boolean
+
+Whether to create an Internet Gateway for public access.
 
 ---
 
@@ -3199,9 +3273,13 @@ public readonly subnetConfiguration: SubnetConfiguration[];
 
 - *Type:* aws-cdk-lib.aws_ec2.SubnetConfiguration[]
 
+Subnet configuration for the VPC.
+
 ---
 
 ### CommonVpcProps <a name="CommonVpcProps" id="cdk-mwaa.CommonVpcProps"></a>
+
+Common properties shared across different VPC constructs.
 
 #### Initializer <a name="Initializer" id="cdk-mwaa.CommonVpcProps.Initializer"></a>
 
@@ -3215,9 +3293,9 @@ const commonVpcProps: CommonVpcProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.CommonVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | *No description.* |
-| <code><a href="#cdk-mwaa.CommonVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#cdk-mwaa.CommonVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.CommonVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | IP address allocation strategy for the VPC. |
+| <code><a href="#cdk-mwaa.CommonVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | Number of NAT gateways to create. |
+| <code><a href="#cdk-mwaa.CommonVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | Optional name for the VPC. |
 
 ---
 
@@ -3229,6 +3307,8 @@ public readonly ipAddresses: IIpAddresses;
 
 - *Type:* aws-cdk-lib.aws_ec2.IIpAddresses
 
+IP address allocation strategy for the VPC.
+
 ---
 
 ##### `natGateways`<sup>Optional</sup> <a name="natGateways" id="cdk-mwaa.CommonVpcProps.property.natGateways"></a>
@@ -3239,6 +3319,8 @@ public readonly natGateways: number;
 
 - *Type:* number
 
+Number of NAT gateways to create.
+
 ---
 
 ##### `vpcName`<sup>Optional</sup> <a name="vpcName" id="cdk-mwaa.CommonVpcProps.property.vpcName"></a>
@@ -3248,6 +3330,8 @@ public readonly vpcName: string;
 ```
 
 - *Type:* string
+
+Optional name for the VPC.
 
 ---
 
@@ -4077,6 +4161,8 @@ If not provided, a default VPC will be created.
 
 ### PrivateRoutingVpcProps <a name="PrivateRoutingVpcProps" id="cdk-mwaa.PrivateRoutingVpcProps"></a>
 
+Properties for a private-routing VPC.
+
 #### Initializer <a name="Initializer" id="cdk-mwaa.PrivateRoutingVpcProps.Initializer"></a>
 
 ```typescript
@@ -4089,10 +4175,10 @@ const privateRoutingVpcProps: PrivateRoutingVpcProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | *No description.* |
-| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.subnetCidrMask">subnetCidrMask</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | IP address allocation strategy for the VPC. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | Number of NAT gateways to create. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | Optional name for the VPC. |
+| <code><a href="#cdk-mwaa.PrivateRoutingVpcProps.property.subnetCidrMask">subnetCidrMask</a></code> | <code>number</code> | CIDR mask size for subnets. |
 
 ---
 
@@ -4104,6 +4190,8 @@ public readonly ipAddresses: IIpAddresses;
 
 - *Type:* aws-cdk-lib.aws_ec2.IIpAddresses
 
+IP address allocation strategy for the VPC.
+
 ---
 
 ##### `natGateways`<sup>Optional</sup> <a name="natGateways" id="cdk-mwaa.PrivateRoutingVpcProps.property.natGateways"></a>
@@ -4113,6 +4201,8 @@ public readonly natGateways: number;
 ```
 
 - *Type:* number
+
+Number of NAT gateways to create.
 
 ---
 
@@ -4124,6 +4214,8 @@ public readonly vpcName: string;
 
 - *Type:* string
 
+Optional name for the VPC.
+
 ---
 
 ##### `subnetCidrMask`<sup>Optional</sup> <a name="subnetCidrMask" id="cdk-mwaa.PrivateRoutingVpcProps.property.subnetCidrMask"></a>
@@ -4134,9 +4226,13 @@ public readonly subnetCidrMask: number;
 
 - *Type:* number
 
+CIDR mask size for subnets.
+
 ---
 
 ### PublicRoutingVpcProps <a name="PublicRoutingVpcProps" id="cdk-mwaa.PublicRoutingVpcProps"></a>
+
+Properties for a public-routing VPC.
 
 #### Initializer <a name="Initializer" id="cdk-mwaa.PublicRoutingVpcProps.Initializer"></a>
 
@@ -4150,10 +4246,10 @@ const publicRoutingVpcProps: PublicRoutingVpcProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | *No description.* |
-| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.subnetCidrMask">subnetCidrMask</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | IP address allocation strategy for the VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | Number of NAT gateways to create. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | Optional name for the VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.subnetCidrMask">subnetCidrMask</a></code> | <code>number</code> | CIDR mask size for subnets. |
 
 ---
 
@@ -4165,6 +4261,8 @@ public readonly ipAddresses: IIpAddresses;
 
 - *Type:* aws-cdk-lib.aws_ec2.IIpAddresses
 
+IP address allocation strategy for the VPC.
+
 ---
 
 ##### `natGateways`<sup>Optional</sup> <a name="natGateways" id="cdk-mwaa.PublicRoutingVpcProps.property.natGateways"></a>
@@ -4174,6 +4272,8 @@ public readonly natGateways: number;
 ```
 
 - *Type:* number
+
+Number of NAT gateways to create.
 
 ---
 
@@ -4185,6 +4285,8 @@ public readonly vpcName: string;
 
 - *Type:* string
 
+Optional name for the VPC.
+
 ---
 
 ##### `subnetCidrMask`<sup>Optional</sup> <a name="subnetCidrMask" id="cdk-mwaa.PublicRoutingVpcProps.property.subnetCidrMask"></a>
@@ -4194,6 +4296,8 @@ public readonly subnetCidrMask: number;
 ```
 
 - *Type:* number
+
+CIDR mask size for subnets.
 
 ---
 
