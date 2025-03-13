@@ -5,6 +5,7 @@ import { Construct } from 'constructs';
 import { DagStorage, DagsOptions, ConfigsOptions } from './dag-storage';
 import { Environment, WebserverAccessMode } from './environment';
 import { Sizing } from './sizing';
+import { PublicRoutingVpc } from './vpc';
 
 /**
  * Interface defining the properties for configuring MWAA (Managed Airflow).
@@ -67,23 +68,7 @@ export class PublicRoutingMWAA extends Construct {
     super(scope, id);
 
     // Create a VPC if not provided, with specific configuration for subnets and NAT Gateways
-    const vpc = props.vpc ?? new ec2.Vpc(this, 'Vpc', {
-      maxAzs: 2, // Use up to 2 Availability Zones
-      natGateways: 2, // Use 2 NAT Gateways for internet access
-      createInternetGateway: true, // Create an Internet Gateway for public access
-      subnetConfiguration: [
-        {
-          cidrMask: 24,
-          name: 'public-subnet',
-          subnetType: ec2.SubnetType.PUBLIC,
-        },
-        {
-          cidrMask: 24,
-          name: 'private-subnet',
-          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-        },
-      ],
-    });
+    const vpc = props.vpc ?? new PublicRoutingVpc(this, 'Vpc');
 
     // Create the DAG storage (S3 bucket) for the MWAA environment
     const dagStorage = new DagStorage(this, 'DagStorage', {

@@ -593,6 +593,667 @@ The tree node.
 ---
 
 
+### PublicRoutingVpc <a name="PublicRoutingVpc" id="cdk-mwaa.PublicRoutingVpc"></a>
+
+#### Initializers <a name="Initializers" id="cdk-mwaa.PublicRoutingVpc.Initializer"></a>
+
+```typescript
+import { PublicRoutingVpc } from 'cdk-mwaa'
+
+new PublicRoutingVpc(scope: Construct, id: string, props?: PublicRoutingVpcProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.Initializer.parameter.props">props</a></code> | <code><a href="#cdk-mwaa.PublicRoutingVpcProps">PublicRoutingVpcProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk-mwaa.PublicRoutingVpc.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="cdk-mwaa.PublicRoutingVpc.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk-mwaa.PublicRoutingVpcProps">PublicRoutingVpcProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.addClientVpnEndpoint">addClientVpnEndpoint</a></code> | Adds a new client VPN endpoint to this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.addFlowLog">addFlowLog</a></code> | Adds a new flow log to this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.addGatewayEndpoint">addGatewayEndpoint</a></code> | Adds a new gateway endpoint to this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.addInterfaceEndpoint">addInterfaceEndpoint</a></code> | Adds a new interface endpoint to this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.addVpnConnection">addVpnConnection</a></code> | Adds a new VPN connection to this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.enableVpnGateway">enableVpnGateway</a></code> | Adds a VPN Gateway to this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.selectSubnets">selectSubnets</a></code> | Returns IDs of selected subnets. |
+
+---
+
+##### `toString` <a name="toString" id="cdk-mwaa.PublicRoutingVpc.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="cdk-mwaa.PublicRoutingVpc.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="cdk-mwaa.PublicRoutingVpc.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `addClientVpnEndpoint` <a name="addClientVpnEndpoint" id="cdk-mwaa.PublicRoutingVpc.addClientVpnEndpoint"></a>
+
+```typescript
+public addClientVpnEndpoint(id: string, options: ClientVpnEndpointOptions): ClientVpnEndpoint
+```
+
+Adds a new client VPN endpoint to this VPC.
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.addClientVpnEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.addClientVpnEndpoint.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ClientVpnEndpointOptions
+
+---
+
+##### `addFlowLog` <a name="addFlowLog" id="cdk-mwaa.PublicRoutingVpc.addFlowLog"></a>
+
+```typescript
+public addFlowLog(id: string, options?: FlowLogOptions): FlowLog
+```
+
+Adds a new flow log to this VPC.
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.addFlowLog.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.addFlowLog.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.FlowLogOptions
+
+---
+
+##### `addGatewayEndpoint` <a name="addGatewayEndpoint" id="cdk-mwaa.PublicRoutingVpc.addGatewayEndpoint"></a>
+
+```typescript
+public addGatewayEndpoint(id: string, options: GatewayVpcEndpointOptions): GatewayVpcEndpoint
+```
+
+Adds a new gateway endpoint to this VPC.
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.addGatewayEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.addGatewayEndpoint.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.GatewayVpcEndpointOptions
+
+---
+
+##### `addInterfaceEndpoint` <a name="addInterfaceEndpoint" id="cdk-mwaa.PublicRoutingVpc.addInterfaceEndpoint"></a>
+
+```typescript
+public addInterfaceEndpoint(id: string, options: InterfaceVpcEndpointOptions): InterfaceVpcEndpoint
+```
+
+Adds a new interface endpoint to this VPC.
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.addInterfaceEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.addInterfaceEndpoint.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpointOptions
+
+---
+
+##### `addVpnConnection` <a name="addVpnConnection" id="cdk-mwaa.PublicRoutingVpc.addVpnConnection"></a>
+
+```typescript
+public addVpnConnection(id: string, options: VpnConnectionOptions): VpnConnection
+```
+
+Adds a new VPN connection to this VPC.
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.addVpnConnection.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.addVpnConnection.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.VpnConnectionOptions
+
+---
+
+##### `enableVpnGateway` <a name="enableVpnGateway" id="cdk-mwaa.PublicRoutingVpc.enableVpnGateway"></a>
+
+```typescript
+public enableVpnGateway(options: EnableVpnGatewayOptions): void
+```
+
+Adds a VPN Gateway to this VPC.
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.enableVpnGateway.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.EnableVpnGatewayOptions
+
+---
+
+##### `selectSubnets` <a name="selectSubnets" id="cdk-mwaa.PublicRoutingVpc.selectSubnets"></a>
+
+```typescript
+public selectSubnets(selection?: SubnetSelection): SelectedSubnets
+```
+
+Returns IDs of selected subnets.
+
+###### `selection`<sup>Optional</sup> <a name="selection" id="cdk-mwaa.PublicRoutingVpc.selectSubnets.parameter.selection"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.fromLookup">fromLookup</a></code> | Import an existing VPC by querying the AWS environment this stack is deployed to. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.fromVpcAttributes">fromVpcAttributes</a></code> | Import a VPC by supplying all attributes directly. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="cdk-mwaa.PublicRoutingVpc.isConstruct"></a>
+
+```typescript
+import { PublicRoutingVpc } from 'cdk-mwaa'
+
+PublicRoutingVpc.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk-mwaa.PublicRoutingVpc.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="cdk-mwaa.PublicRoutingVpc.isOwnedResource"></a>
+
+```typescript
+import { PublicRoutingVpc } from 'cdk-mwaa'
+
+PublicRoutingVpc.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="cdk-mwaa.PublicRoutingVpc.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="cdk-mwaa.PublicRoutingVpc.isResource"></a>
+
+```typescript
+import { PublicRoutingVpc } from 'cdk-mwaa'
+
+PublicRoutingVpc.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="cdk-mwaa.PublicRoutingVpc.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `fromLookup` <a name="fromLookup" id="cdk-mwaa.PublicRoutingVpc.fromLookup"></a>
+
+```typescript
+import { PublicRoutingVpc } from 'cdk-mwaa'
+
+PublicRoutingVpc.fromLookup(scope: Construct, id: string, options: VpcLookupOptions)
+```
+
+Import an existing VPC by querying the AWS environment this stack is deployed to.
+
+This function only needs to be used to use VPCs not defined in your CDK
+application. If you are looking to share a VPC between stacks, you can
+pass the `Vpc` object between stacks and use it as normal.
+
+Calling this method will lead to a lookup when the CDK CLI is executed.
+You can therefore not use any values that will only be available at
+CloudFormation execution time (i.e., Tokens).
+
+The VPC information will be cached in `cdk.context.json` and the same VPC
+will be used on future runs. To refresh the lookup, you will have to
+evict the value from the cache using the `cdk context` command. See
+https://docs.aws.amazon.com/cdk/latest/guide/context.html for more information.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk-mwaa.PublicRoutingVpc.fromLookup.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.fromLookup.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk-mwaa.PublicRoutingVpc.fromLookup.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.VpcLookupOptions
+
+---
+
+##### `fromVpcAttributes` <a name="fromVpcAttributes" id="cdk-mwaa.PublicRoutingVpc.fromVpcAttributes"></a>
+
+```typescript
+import { PublicRoutingVpc } from 'cdk-mwaa'
+
+PublicRoutingVpc.fromVpcAttributes(scope: Construct, id: string, attrs: VpcAttributes)
+```
+
+Import a VPC by supplying all attributes directly.
+
+NOTE: using `fromVpcAttributes()` with deploy-time parameters (like a `Fn.importValue()` or
+`CfnParameter` to represent a list of subnet IDs) sometimes accidentally works. It happens
+to work for constructs that need a list of subnets (like `AutoScalingGroup` and `eks.Cluster`)
+but it does not work for constructs that need individual subnets (like
+`Instance`). See https://github.com/aws/aws-cdk/issues/4118 for more
+information.
+
+Prefer to use `Vpc.fromLookup()` instead.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk-mwaa.PublicRoutingVpc.fromVpcAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.PublicRoutingVpc.fromVpcAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="cdk-mwaa.PublicRoutingVpc.fromVpcAttributes.parameter.attrs"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.VpcAttributes
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | AZs for this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.dnsHostnamesEnabled">dnsHostnamesEnabled</a></code> | <code>boolean</code> | Indicates if instances launched in this VPC will have public DNS hostnames. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.dnsSupportEnabled">dnsSupportEnabled</a></code> | <code>boolean</code> | Indicates if DNS support is enabled for this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.internetConnectivityEstablished">internetConnectivityEstablished</a></code> | <code>constructs.IDependable</code> | Dependencies for internet connectivity. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.isolatedSubnets">isolatedSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | List of isolated subnets in this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.privateSubnets">privateSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | List of private subnets in this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.publicSubnets">publicSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | List of public subnets in this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcArn">vpcArn</a></code> | <code>string</code> | Arn of this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | CIDR range for this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcCidrBlockAssociations">vpcCidrBlockAssociations</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcDefaultNetworkAcl">vpcDefaultNetworkAcl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcDefaultSecurityGroup">vpcDefaultSecurityGroup</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcId">vpcId</a></code> | <code>string</code> | Identifier for this VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpcIpv6CidrBlocks">vpcIpv6CidrBlocks</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.internetGatewayId">internetGatewayId</a></code> | <code>string</code> | Internet Gateway for the VPC. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | Returns the id of the VPN Gateway (if enabled). |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk-mwaa.PublicRoutingVpc.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="cdk-mwaa.PublicRoutingVpc.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="cdk-mwaa.PublicRoutingVpc.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="cdk-mwaa.PublicRoutingVpc.property.availabilityZones"></a>
+
+```typescript
+public readonly availabilityZones: string[];
+```
+
+- *Type:* string[]
+
+AZs for this VPC.
+
+---
+
+##### `dnsHostnamesEnabled`<sup>Required</sup> <a name="dnsHostnamesEnabled" id="cdk-mwaa.PublicRoutingVpc.property.dnsHostnamesEnabled"></a>
+
+```typescript
+public readonly dnsHostnamesEnabled: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if instances launched in this VPC will have public DNS hostnames.
+
+---
+
+##### `dnsSupportEnabled`<sup>Required</sup> <a name="dnsSupportEnabled" id="cdk-mwaa.PublicRoutingVpc.property.dnsSupportEnabled"></a>
+
+```typescript
+public readonly dnsSupportEnabled: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if DNS support is enabled for this VPC.
+
+---
+
+##### `internetConnectivityEstablished`<sup>Required</sup> <a name="internetConnectivityEstablished" id="cdk-mwaa.PublicRoutingVpc.property.internetConnectivityEstablished"></a>
+
+```typescript
+public readonly internetConnectivityEstablished: IDependable;
+```
+
+- *Type:* constructs.IDependable
+
+Dependencies for internet connectivity.
+
+---
+
+##### `isolatedSubnets`<sup>Required</sup> <a name="isolatedSubnets" id="cdk-mwaa.PublicRoutingVpc.property.isolatedSubnets"></a>
+
+```typescript
+public readonly isolatedSubnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+List of isolated subnets in this VPC.
+
+---
+
+##### `privateSubnets`<sup>Required</sup> <a name="privateSubnets" id="cdk-mwaa.PublicRoutingVpc.property.privateSubnets"></a>
+
+```typescript
+public readonly privateSubnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+List of private subnets in this VPC.
+
+---
+
+##### `publicSubnets`<sup>Required</sup> <a name="publicSubnets" id="cdk-mwaa.PublicRoutingVpc.property.publicSubnets"></a>
+
+```typescript
+public readonly publicSubnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+List of public subnets in this VPC.
+
+---
+
+##### `vpcArn`<sup>Required</sup> <a name="vpcArn" id="cdk-mwaa.PublicRoutingVpc.property.vpcArn"></a>
+
+```typescript
+public readonly vpcArn: string;
+```
+
+- *Type:* string
+
+Arn of this VPC.
+
+---
+
+##### `vpcCidrBlock`<sup>Required</sup> <a name="vpcCidrBlock" id="cdk-mwaa.PublicRoutingVpc.property.vpcCidrBlock"></a>
+
+```typescript
+public readonly vpcCidrBlock: string;
+```
+
+- *Type:* string
+
+CIDR range for this VPC.
+
+---
+
+##### `vpcCidrBlockAssociations`<sup>Required</sup> <a name="vpcCidrBlockAssociations" id="cdk-mwaa.PublicRoutingVpc.property.vpcCidrBlockAssociations"></a>
+
+```typescript
+public readonly vpcCidrBlockAssociations: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `vpcDefaultNetworkAcl`<sup>Required</sup> <a name="vpcDefaultNetworkAcl" id="cdk-mwaa.PublicRoutingVpc.property.vpcDefaultNetworkAcl"></a>
+
+```typescript
+public readonly vpcDefaultNetworkAcl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpcDefaultSecurityGroup`<sup>Required</sup> <a name="vpcDefaultSecurityGroup" id="cdk-mwaa.PublicRoutingVpc.property.vpcDefaultSecurityGroup"></a>
+
+```typescript
+public readonly vpcDefaultSecurityGroup: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpcId`<sup>Required</sup> <a name="vpcId" id="cdk-mwaa.PublicRoutingVpc.property.vpcId"></a>
+
+```typescript
+public readonly vpcId: string;
+```
+
+- *Type:* string
+
+Identifier for this VPC.
+
+---
+
+##### `vpcIpv6CidrBlocks`<sup>Required</sup> <a name="vpcIpv6CidrBlocks" id="cdk-mwaa.PublicRoutingVpc.property.vpcIpv6CidrBlocks"></a>
+
+```typescript
+public readonly vpcIpv6CidrBlocks: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `internetGatewayId`<sup>Optional</sup> <a name="internetGatewayId" id="cdk-mwaa.PublicRoutingVpc.property.internetGatewayId"></a>
+
+```typescript
+public readonly internetGatewayId: string;
+```
+
+- *Type:* string
+
+Internet Gateway for the VPC.
+
+Note that in case the VPC is configured only
+with ISOLATED subnets, this attribute will be `undefined`.
+
+---
+
+##### `vpnGatewayId`<sup>Optional</sup> <a name="vpnGatewayId" id="cdk-mwaa.PublicRoutingVpc.property.vpnGatewayId"></a>
+
+```typescript
+public readonly vpnGatewayId: string;
+```
+
+- *Type:* string
+
+Returns the id of the VPN Gateway (if enabled).
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.DEFAULT_CIDR_RANGE">DEFAULT_CIDR_RANGE</a></code> | <code>string</code> | The default CIDR range used when creating VPCs. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.DEFAULT_SUBNETS">DEFAULT_SUBNETS</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetConfiguration[]</code> | The default subnet configuration. |
+| <code><a href="#cdk-mwaa.PublicRoutingVpc.property.DEFAULT_SUBNETS_NO_NAT">DEFAULT_SUBNETS_NO_NAT</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetConfiguration[]</code> | The default subnet configuration if natGateways specified to be 0. |
+
+---
+
+##### `DEFAULT_CIDR_RANGE`<sup>Required</sup> <a name="DEFAULT_CIDR_RANGE" id="cdk-mwaa.PublicRoutingVpc.property.DEFAULT_CIDR_RANGE"></a>
+
+```typescript
+public readonly DEFAULT_CIDR_RANGE: string;
+```
+
+- *Type:* string
+
+The default CIDR range used when creating VPCs.
+
+This can be overridden using VpcProps when creating a VPCNetwork resource.
+e.g. new VpcResource(this, { cidr: '192.168.0.0./16' })
+
+Note this is specific to the IPv4 CIDR.
+
+---
+
+##### `DEFAULT_SUBNETS`<sup>Required</sup> <a name="DEFAULT_SUBNETS" id="cdk-mwaa.PublicRoutingVpc.property.DEFAULT_SUBNETS"></a>
+
+```typescript
+public readonly DEFAULT_SUBNETS: SubnetConfiguration[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetConfiguration[]
+
+The default subnet configuration.
+
+1 Public and 1 Private subnet per AZ evenly split
+
+---
+
+##### `DEFAULT_SUBNETS_NO_NAT`<sup>Required</sup> <a name="DEFAULT_SUBNETS_NO_NAT" id="cdk-mwaa.PublicRoutingVpc.property.DEFAULT_SUBNETS_NO_NAT"></a>
+
+```typescript
+public readonly DEFAULT_SUBNETS_NO_NAT: SubnetConfiguration[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetConfiguration[]
+
+The default subnet configuration if natGateways specified to be 0.
+
+1 Public and 1 Isolated Subnet per AZ evenly split
+
+---
+
 ### SecurityGroup <a name="SecurityGroup" id="cdk-mwaa.SecurityGroup"></a>
 
 A custom Security Group with a self-referencing ingress rule for MWAA.
@@ -1934,6 +2595,67 @@ public readonly vpc: IVpc;
 The VPC in which to deploy the MWAA environment.
 
 If not provided, a default VPC will be created.
+
+---
+
+### PublicRoutingVpcProps <a name="PublicRoutingVpcProps" id="cdk-mwaa.PublicRoutingVpcProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk-mwaa.PublicRoutingVpcProps.Initializer"></a>
+
+```typescript
+import { PublicRoutingVpcProps } from 'cdk-mwaa'
+
+const publicRoutingVpcProps: PublicRoutingVpcProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.subnetCidrMask">subnetCidrMask</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk-mwaa.PublicRoutingVpcProps.property.vpcName">vpcName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `ipAddresses`<sup>Optional</sup> <a name="ipAddresses" id="cdk-mwaa.PublicRoutingVpcProps.property.ipAddresses"></a>
+
+```typescript
+public readonly ipAddresses: IIpAddresses;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IIpAddresses
+
+---
+
+##### `natGateways`<sup>Optional</sup> <a name="natGateways" id="cdk-mwaa.PublicRoutingVpcProps.property.natGateways"></a>
+
+```typescript
+public readonly natGateways: number;
+```
+
+- *Type:* number
+
+---
+
+##### `subnetCidrMask`<sup>Optional</sup> <a name="subnetCidrMask" id="cdk-mwaa.PublicRoutingVpcProps.property.subnetCidrMask"></a>
+
+```typescript
+public readonly subnetCidrMask: number;
+```
+
+- *Type:* number
+
+---
+
+##### `vpcName`<sup>Optional</sup> <a name="vpcName" id="cdk-mwaa.PublicRoutingVpcProps.property.vpcName"></a>
+
+```typescript
+public readonly vpcName: string;
+```
+
+- *Type:* string
 
 ---
 

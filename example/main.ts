@@ -2,29 +2,14 @@ import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as mwaa from '../src';
-import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
-export class ExampleStack extends cdk.Stack {
+export class MwaaExampleStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // Create a new VPC
-    const vpc = new ec2.Vpc(this, 'MyMwaaVpc', {
-      maxAzs: 2, // Default is all AZs in the region
+    const vpc = new mwaa.PublicRoutingVpc(this, 'MyMwaaVpc', {
       natGateways: 1,
-      createInternetGateway: true,
-      subnetConfiguration: [
-        {
-          cidrMask: 24,
-          name: 'public-subnet',
-          subnetType: ec2.SubnetType.PUBLIC,
-        },
-        {
-          cidrMask: 24,
-          name: 'private-subnet',
-          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-        },
-      ],
     });
 
     const dagStorage = new mwaa.DagStorage(this, 'MyMwaaDagStorage', {
@@ -56,7 +41,7 @@ export class ExampleStack extends cdk.Stack {
 
 const app = new cdk.App();
 
-new ExampleStack(app, 'ExampleStack', { 
+new MwaaExampleStack(app, 'MwaaExampleStack', { 
     env: {
         account: process.env.CDK_DEFAULT_ACCOUNT, 
         region: process.env.CDK_DEFAULT_REGION,
