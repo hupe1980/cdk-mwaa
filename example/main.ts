@@ -36,6 +36,13 @@ export class MwaaExampleStack extends cdk.Stack {
     });
 
     environment.enableSecretsBackend();
+
+    new mwaa.AirflowPool(this, 'MyMwaaPool', {
+      environment,
+      poolName: 'my_pool',
+      poolSlots: 3,
+      poolDescription: 'My custom pool',
+    });
   }
 }
 

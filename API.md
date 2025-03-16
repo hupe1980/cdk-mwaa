@@ -2,6 +2,204 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### AirflowPool <a name="AirflowPool" id="cdk-mwaa.AirflowPool"></a>
+
+#### Initializers <a name="Initializers" id="cdk-mwaa.AirflowPool.Initializer"></a>
+
+```typescript
+import { AirflowPool } from 'cdk-mwaa'
+
+new AirflowPool(scope: Construct, id: string, props: AirflowPoolProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.AirflowPool.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowPool.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowPool.Initializer.parameter.props">props</a></code> | <code><a href="#cdk-mwaa.AirflowPoolProps">AirflowPoolProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk-mwaa.AirflowPool.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.AirflowPool.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk-mwaa.AirflowPool.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk-mwaa.AirflowPoolProps">AirflowPoolProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk-mwaa.AirflowPool.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk-mwaa.AirflowPool.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk-mwaa.AirflowPool.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="cdk-mwaa.AirflowPool.isConstruct"></a>
+
+```typescript
+import { AirflowPool } from 'cdk-mwaa'
+
+AirflowPool.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk-mwaa.AirflowPool.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.AirflowPool.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk-mwaa.AirflowPool.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
+### AirflowResourceBase <a name="AirflowResourceBase" id="cdk-mwaa.AirflowResourceBase"></a>
+
+#### Initializers <a name="Initializers" id="cdk-mwaa.AirflowResourceBase.Initializer"></a>
+
+```typescript
+import { AirflowResourceBase } from 'cdk-mwaa'
+
+new AirflowResourceBase(scope: Construct, id: string, props: AirflowResourceBaseProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.AirflowResourceBase.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowResourceBase.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowResourceBase.Initializer.parameter.props">props</a></code> | <code><a href="#cdk-mwaa.AirflowResourceBaseProps">AirflowResourceBaseProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk-mwaa.AirflowResourceBase.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk-mwaa.AirflowResourceBase.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk-mwaa.AirflowResourceBase.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk-mwaa.AirflowResourceBaseProps">AirflowResourceBaseProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk-mwaa.AirflowResourceBase.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk-mwaa.AirflowResourceBase.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk-mwaa.AirflowResourceBase.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="cdk-mwaa.AirflowResourceBase.isConstruct"></a>
+
+```typescript
+import { AirflowResourceBase } from 'cdk-mwaa'
+
+AirflowResourceBase.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk-mwaa.AirflowResourceBase.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.AirflowResourceBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk-mwaa.AirflowResourceBase.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### BaseVpc <a name="BaseVpc" id="cdk-mwaa.BaseVpc"></a>
 
 Abstract base class for creating a VPC with common configurations.
@@ -1044,6 +1242,7 @@ Any object.
 | <code><a href="#cdk-mwaa.Environment.property.celeryExecutorQueue">celeryExecutorQueue</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.dagProcessingLogsGroupArn">dagProcessingLogsGroupArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.databaseVpcEndpointService">databaseVpcEndpointService</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.schedulerLogsGroupArn">schedulerLogsGroupArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.taskLogsGroupArn">taskLogsGroupArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.webserverLogsGroupArn">webserverLogsGroupArn</a></code> | <code>string</code> | *No description.* |
@@ -1099,6 +1298,16 @@ public readonly dagProcessingLogsGroupArn: string;
 
 ```typescript
 public readonly databaseVpcEndpointService: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk-mwaa.Environment.property.name"></a>
+
+```typescript
+public readonly name: string;
 ```
 
 - *Type:* string
@@ -3192,6 +3401,128 @@ public readonly defaultPort: Port;
 
 
 ## Structs <a name="Structs" id="Structs"></a>
+
+### AirflowPoolProps <a name="AirflowPoolProps" id="cdk-mwaa.AirflowPoolProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk-mwaa.AirflowPoolProps.Initializer"></a>
+
+```typescript
+import { AirflowPoolProps } from 'cdk-mwaa'
+
+const airflowPoolProps: AirflowPoolProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.AirflowPoolProps.property.environment">environment</a></code> | <code><a href="#cdk-mwaa.Environment">Environment</a></code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowPoolProps.property.poolName">poolName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowPoolProps.property.poolDescription">poolDescription</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowPoolProps.property.poolSlots">poolSlots</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `environment`<sup>Required</sup> <a name="environment" id="cdk-mwaa.AirflowPoolProps.property.environment"></a>
+
+```typescript
+public readonly environment: Environment;
+```
+
+- *Type:* <a href="#cdk-mwaa.Environment">Environment</a>
+
+---
+
+##### `poolName`<sup>Required</sup> <a name="poolName" id="cdk-mwaa.AirflowPoolProps.property.poolName"></a>
+
+```typescript
+public readonly poolName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `poolDescription`<sup>Optional</sup> <a name="poolDescription" id="cdk-mwaa.AirflowPoolProps.property.poolDescription"></a>
+
+```typescript
+public readonly poolDescription: string;
+```
+
+- *Type:* string
+
+---
+
+##### `poolSlots`<sup>Optional</sup> <a name="poolSlots" id="cdk-mwaa.AirflowPoolProps.property.poolSlots"></a>
+
+```typescript
+public readonly poolSlots: number;
+```
+
+- *Type:* number
+
+---
+
+### AirflowResourceBaseProps <a name="AirflowResourceBaseProps" id="cdk-mwaa.AirflowResourceBaseProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk-mwaa.AirflowResourceBaseProps.Initializer"></a>
+
+```typescript
+import { AirflowResourceBaseProps } from 'cdk-mwaa'
+
+const airflowResourceBaseProps: AirflowResourceBaseProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-mwaa.AirflowResourceBaseProps.property.environment">environment</a></code> | <code><a href="#cdk-mwaa.Environment">Environment</a></code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowResourceBaseProps.property.properties">properties</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowResourceBaseProps.property.resourceType">resourceType</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.AirflowResourceBaseProps.property.airflowRole">airflowRole</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `environment`<sup>Required</sup> <a name="environment" id="cdk-mwaa.AirflowResourceBaseProps.property.environment"></a>
+
+```typescript
+public readonly environment: Environment;
+```
+
+- *Type:* <a href="#cdk-mwaa.Environment">Environment</a>
+
+---
+
+##### `properties`<sup>Required</sup> <a name="properties" id="cdk-mwaa.AirflowResourceBaseProps.property.properties"></a>
+
+```typescript
+public readonly properties: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk-mwaa.AirflowResourceBaseProps.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+---
+
+##### `airflowRole`<sup>Optional</sup> <a name="airflowRole" id="cdk-mwaa.AirflowResourceBaseProps.property.airflowRole"></a>
+
+```typescript
+public readonly airflowRole: string;
+```
+
+- *Type:* string
+
+---
 
 ### BaseVpcProps <a name="BaseVpcProps" id="cdk-mwaa.BaseVpcProps"></a>
 

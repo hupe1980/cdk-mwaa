@@ -104,6 +104,7 @@ export interface EnvironmentProps {
  * Represents an MWAA environment.
  */
 export class Environment extends Construct {
+  public readonly name: string; // Name of the MWAA environment
   public readonly arn: string; // ARN of the MWAA environment
   public readonly celeryExecutorQueue: string; // ARN for Celery Executor queue
   public readonly databaseVpcEndpointService: string; // VPC endpoint for RDS database
@@ -258,6 +259,7 @@ export class Environment extends Construct {
     environment.node.addDependency(this.executionRole);
 
     // Assign environment properties
+    this.name = props.name;
     this.arn = environment.attrArn;
     this.celeryExecutorQueue = environment.attrCeleryExecutorQueue;
     this.databaseVpcEndpointService = environment.attrDatabaseVpcEndpointService;
