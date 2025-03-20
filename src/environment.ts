@@ -317,22 +317,12 @@ export class Environment extends Construct {
         `arn:aws:secretsmanager:${region}:${account}:secret:${finalOptions.connectionsPrefix}/*`,
         `arn:aws:secretsmanager:${region}:${account}:secret:${finalOptions.variablesPrefix}/*`,
       ],
-      conditions: {
-        StringEquals: {
-          'aws:ResourceTag/Environment': 'MWAA',
-        },
-      },
     }));
 
     this.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: ['secretsmanager:ListSecrets'],
       resources: ['*'],
-      conditions: {
-        StringEquals: {
-          'aws:ResourceTag/Environment': 'MWAA',
-        },
-      },
     }));
   }
 
