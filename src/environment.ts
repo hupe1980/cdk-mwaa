@@ -60,15 +60,21 @@ export interface EmailBackendOptions {
  */
 export interface LoggingConfigurationProperty {
   /**
-   * Indicates whether to enable the Apache Airflow log type (e.g. DagProcessingLogs) in CloudWatch Logs.
+   * Indicates whether to enable the Apache Airflow log type (e.g., DagProcessingLogs) in CloudWatch Logs.
    */
   readonly enabled?: boolean;
 
   /**
-   * Defines the log level for the specified log type (e.g. DagProcessingLogs).
+   * Defines the log level for the specified log type (e.g., DagProcessingLogs).
    * Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG.
    */
   readonly logLevel?: LogLevel;
+
+  /**
+   * Specifies the retention period for the log group in Amazon CloudWatch Logs.
+   * Determines how long the logs should be kept before being automatically deleted.
+   */
+  readonly retention?: logs.RetentionDays;
 }
 
 /**
@@ -137,88 +143,10 @@ export class Environment extends Construct {
       ...props.airflowConfigurationOptions ?? {},
     };
 
-    const executionPolicy = new iam.PolicyDocument({
-      statements: [
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: ['airflow:PublishMetrics'],
-          resources: [`arn:aws:airflow:${region}:${account}:environment/${props.name}`],
-        }),
-        new iam.PolicyStatement({
-          effect: iam.Effect.DENY,
-          actions: ['s3:ListAllMyBuckets'],
-          resources: ['*'],
-        }),
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: ['s3:GetObject*', 's3:GetBucket*', 's3:List*'],
-          resources: [props.dagStorage.bucket.bucketArn, `${props.dagStorage.bucket.bucketArn}/*`],
-        }),
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: [
-            'logs:CreateLogStream',
-            'logs:CreateLogGroup',
-            'logs:PutLogEvents',
-            'logs:GetLogEvents',
-            'logs:GetLogRecord',
-            'logs:GetLogGroupFields',
-            'logs:GetQueryResults',
-          ],
-          resources: [
-            `arn:aws:logs:${region}:${account}:log-group:airflow-${props.name}-*`,
-          ],
-        }),
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: ['cloudwatch:PutMetricData'],
-          resources: ['*'],
-        }),
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: ['sqs:ChangeMessageVisibility', 'sqs:DeleteMessage', 'sqs:GetQueueAttributes', 'sqs:ReceiveMessage'],
-          resources: [`arn:aws:sqs:${region}:*:airflow-celery-*`],
-        }),
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: [
-            'kms:Decrypt',
-            'kms:DescribeKey',
-            'kms:GenerateDataKey*',
-            'kms:Encrypt',
-          ],
-          notResources: [`arn:aws:kms:*:${account}:key/*`],
-          conditions: {
-            StringLike: {
-              'kms:ViaService': [`sqs.${region}.amazonaws.com`],
-            },
-          },
-        }),
-      ],
-    });
+    // Create the IAM execution role
+    this.executionRole = this.createExecutionRole(props.name, props.dagStorage.bucket.bucketArn, region, account);
 
-    // Cross-service confused deputy prevention
-    const conditions = {
-      ArnLike: {
-        'aws:SourceArn': `arn:aws:airflow:${region}:${account}:environment/${props.name}`,
-      },
-      StringEquals: {
-        'aws:SourceAccount': account,
-      },
-    };
-
-    // Creating the IAM execution role
-    this.executionRole = new iam.Role(this, 'MWAAExecutionRole', {
-      assumedBy: new iam.CompositePrincipal(
-        new iam.ServicePrincipal('airflow.amazonaws.com', { conditions }),
-        new iam.ServicePrincipal('airflow-env.amazonaws.com', { conditions }),
-      ),
-      path: '/service-role/',
-      inlinePolicies: {
-        mwaaExecutionPolicy: executionPolicy,
-      },
-    });
-
+    // Validate the weekly maintenance window start time
     const weeklyMaintenanceWindowStart = this.validateWeeklyMaintenanceWindowStart(props.weeklyMaintenanceWindowStart);
 
     // Security group for MWAA environment
@@ -226,7 +154,7 @@ export class Environment extends Construct {
       vpc: props.vpc,
     })];
 
-    // Creating the MWAA environment
+    // Create the MWAA environment
     const environment = new mwaa.CfnEnvironment(this, 'MWAAEnvironment', {
       airflowVersion: props.airflowVersion,
       airflowConfigurationOptions: Lazy.any({ produce: () => this.airflowConfigurationOptions }),
@@ -259,17 +187,43 @@ export class Environment extends Construct {
     environment.node.addDependency(props.dagStorage);
     environment.node.addDependency(this.executionRole);
 
-
     // Assign environment properties
     this.name = props.name;
     this.arn = environment.attrArn;
     this.celeryExecutorQueue = environment.attrCeleryExecutorQueue;
     this.databaseVpcEndpointService = environment.attrDatabaseVpcEndpointService;
-    this.dagProcessingLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'DagProcessingLogsGroup', environment.attrLoggingConfigurationDagProcessingLogsCloudWatchLogGroupArn);
-    this.schedulerLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'SchedulerLogsGroup', environment.attrLoggingConfigurationSchedulerLogsCloudWatchLogGroupArn);
-    this.taskLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'TaskLogsGroup', environment.attrLoggingConfigurationTaskLogsCloudWatchLogGroupArn);
-    this.webserverLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'WebserverLogsGroup', environment.attrLoggingConfigurationWebserverLogsCloudWatchLogGroupArn);
-    this.workerLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'WorkerLogsGroup', environment.attrLoggingConfigurationWorkerLogsCloudWatchLogGroupArn);
+
+    // Create log groups with retention
+    this.dagProcessingLogsGroup = this.createLogGroupWithRetention(
+      'DagProcessingLogs',
+      environment.attrLoggingConfigurationDagProcessingLogsCloudWatchLogGroupArn,
+      props.loggingConfiguration?.dagProcessingLogs?.retention,
+    );
+
+    this.schedulerLogsGroup = this.createLogGroupWithRetention(
+      'SchedulerLogs',
+      environment.attrLoggingConfigurationSchedulerLogsCloudWatchLogGroupArn,
+      props.loggingConfiguration?.schedulerLogs?.retention,
+    );
+
+    this.taskLogsGroup = this.createLogGroupWithRetention(
+      'TaskLogs',
+      environment.attrLoggingConfigurationTaskLogsCloudWatchLogGroupArn,
+      props.loggingConfiguration?.taskLogs?.retention,
+    );
+
+    this.webserverLogsGroup = this.createLogGroupWithRetention(
+      'WebserverLogs',
+      environment.attrLoggingConfigurationWebserverLogsCloudWatchLogGroupArn,
+      props.loggingConfiguration?.webserverLogs?.retention,
+    );
+
+    this.workerLogsGroup = this.createLogGroupWithRetention(
+      'WorkerLogs',
+      environment.attrLoggingConfigurationWorkerLogsCloudWatchLogGroupArn,
+      props.loggingConfiguration?.workerLogs?.retention,
+    );
+
     this.webserverUrl = environment.attrWebserverUrl;
     this.webserverVpcEndpointService = environment.attrWebserverVpcEndpointService;
 
@@ -279,6 +233,129 @@ export class Environment extends Construct {
         Tags.of(environment).add(key, value);
       }
     }
+  }
+
+  /**
+   * Creates an IAM execution role for the MWAA environment.
+   * @param name - The name of the MWAA environment.
+   * @param bucketArn - The ARN of the DAG storage bucket.
+   * @param region - The AWS region.
+   * @param account - The AWS account ID.
+   * @returns The IAM execution role.
+   */
+  private createExecutionRole(name: string, bucketArn: string, region: string, account: string): iam.Role {
+    const executionPolicy = new iam.PolicyDocument({
+      statements: [
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['airflow:PublishMetrics'],
+          resources: [`arn:aws:airflow:${region}:${account}:environment/${name}`],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.DENY,
+          actions: ['s3:ListAllMyBuckets'],
+          resources: ['*'],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['s3:GetObject*', 's3:GetBucket*', 's3:List*'],
+          resources: [bucketArn, `${bucketArn}/*`],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: [
+            'logs:CreateLogStream',
+            'logs:CreateLogGroup',
+            'logs:PutLogEvents',
+            'logs:GetLogEvents',
+            'logs:GetLogRecord',
+            'logs:GetLogGroupFields',
+            'logs:GetQueryResults',
+          ],
+          resources: [`arn:aws:logs:${region}:${account}:log-group:airflow-${name}-*`],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['cloudwatch:PutMetricData'],
+          resources: ['*'],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['sqs:ChangeMessageVisibility', 'sqs:DeleteMessage', 'sqs:GetQueueAttributes', 'sqs:ReceiveMessage'],
+          resources: [`arn:aws:sqs:${region}:*:airflow-celery-*`],
+        }),
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['kms:Decrypt', 'kms:DescribeKey', 'kms:GenerateDataKey*', 'kms:Encrypt'],
+          notResources: [`arn:aws:kms:*:${account}:key/*`],
+          conditions: {
+            StringLike: {
+              'kms:ViaService': [`sqs.${region}.amazonaws.com`],
+            },
+          },
+        }),
+      ],
+    });
+
+    const conditions = {
+      ArnLike: {
+        'aws:SourceArn': `arn:aws:airflow:${region}:${account}:environment/${name}`,
+      },
+      StringEquals: {
+        'aws:SourceAccount': account,
+      },
+    };
+
+    return new iam.Role(this, 'MWAAExecutionRole', {
+      assumedBy: new iam.CompositePrincipal(
+        new iam.ServicePrincipal('airflow.amazonaws.com', { conditions }),
+        new iam.ServicePrincipal('airflow-env.amazonaws.com', { conditions }),
+      ),
+      path: '/service-role/',
+      inlinePolicies: {
+        mwaaExecutionPolicy: executionPolicy,
+      },
+    });
+  }
+
+  /**
+   * Creates or references a CloudWatch log group and optionally sets its retention policy.
+   * @param id - The unique ID for the log group.
+   * @param logGroupArn - The ARN of the log group.
+   * @param retention - The retention period for the log group.
+   * @returns The log group.
+   */
+  private createLogGroupWithRetention(
+    id: string,
+    logGroupArn: string,
+    retention?: logs.RetentionDays,
+  ): logs.ILogGroup {
+    const logGroup = logs.LogGroup.fromLogGroupArn(this, `${id}LogGroup`, logGroupArn);
+
+    if (retention) {
+      new logs.LogRetention(this, `${id}LogRetention`, {
+        logGroupName: logGroup.logGroupName,
+        retention: retention,
+      });
+    }
+
+    return logGroup;
+  }
+
+  /**
+   * Validates the weekly maintenance window start time.
+   * @param weeklyMaintenanceWindowStart - The weekly maintenance window start time in UTC (e.g., 'Sun:10:00').
+   * @returns The validated weekly maintenance window start time.
+   */
+  private validateWeeklyMaintenanceWindowStart(weeklyMaintenanceWindowStart?: string): string | undefined {
+    if (weeklyMaintenanceWindowStart) {
+      const regex = /^([a-zA-Z]+):([0-9]{2}):([0-9]{2})$/;
+      if (!weeklyMaintenanceWindowStart.match(regex)) {
+        throw new Error('Invalid format for weeklyMaintenanceWindowStart. Expected format: "Day:HH:mm"');
+      }
+      return weeklyMaintenanceWindowStart;
+    }
+    return undefined;
   }
 
   /**
@@ -331,6 +408,7 @@ export class Environment extends Construct {
 
   /**
    * Enables the email backend for Airflow to send email notifications.
+   *
    * @param options - The configuration options for the email backend.
    */
   public enableEmailBackend(options: EmailBackendOptions): void {
@@ -367,20 +445,5 @@ export class Environment extends Construct {
    */
   public setAirflowConfigurationOption(key: string, value: any): void {
     this.airflowConfigurationOptions[key] = value;
-  }
-
-  /**
-   * Validates the weekly maintenance window start time.
-   * @param weeklyMaintenanceWindowStart - The weekly maintenance window start time in UTC (e.g., 'Sun:10:00').
-   */
-  private validateWeeklyMaintenanceWindowStart(weeklyMaintenanceWindowStart?: string): string | undefined {
-    if (weeklyMaintenanceWindowStart) {
-      const regex = /^([a-zA-Z]+):([0-9]{2}):([0-9]{2})$/;
-      if (!weeklyMaintenanceWindowStart.match(regex)) {
-        throw new Error('Invalid format for weeklyMaintenanceWindowStart. Expected format: "Day:HH:mm"');
-      }
-      return weeklyMaintenanceWindowStart;
-    }
-    return undefined;
   }
 }

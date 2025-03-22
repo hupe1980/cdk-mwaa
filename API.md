@@ -4314,8 +4314,9 @@ const loggingConfigurationProperty: LoggingConfigurationProperty = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-mwaa.LoggingConfigurationProperty.property.enabled">enabled</a></code> | <code>boolean</code> | Indicates whether to enable the Apache Airflow log type (e.g. DagProcessingLogs) in CloudWatch Logs. |
-| <code><a href="#cdk-mwaa.LoggingConfigurationProperty.property.logLevel">logLevel</a></code> | <code><a href="#cdk-mwaa.LogLevel">LogLevel</a></code> | Defines the log level for the specified log type (e.g. DagProcessingLogs). Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG. |
+| <code><a href="#cdk-mwaa.LoggingConfigurationProperty.property.enabled">enabled</a></code> | <code>boolean</code> | Indicates whether to enable the Apache Airflow log type (e.g., DagProcessingLogs) in CloudWatch Logs. |
+| <code><a href="#cdk-mwaa.LoggingConfigurationProperty.property.logLevel">logLevel</a></code> | <code><a href="#cdk-mwaa.LogLevel">LogLevel</a></code> | Defines the log level for the specified log type (e.g., DagProcessingLogs). Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG. |
+| <code><a href="#cdk-mwaa.LoggingConfigurationProperty.property.retention">retention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Specifies the retention period for the log group in Amazon CloudWatch Logs. |
 
 ---
 
@@ -4327,7 +4328,7 @@ public readonly enabled: boolean;
 
 - *Type:* boolean
 
-Indicates whether to enable the Apache Airflow log type (e.g. DagProcessingLogs) in CloudWatch Logs.
+Indicates whether to enable the Apache Airflow log type (e.g., DagProcessingLogs) in CloudWatch Logs.
 
 ---
 
@@ -4339,7 +4340,21 @@ public readonly logLevel: LogLevel;
 
 - *Type:* <a href="#cdk-mwaa.LogLevel">LogLevel</a>
 
-Defines the log level for the specified log type (e.g. DagProcessingLogs). Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG.
+Defines the log level for the specified log type (e.g., DagProcessingLogs). Valid values: CRITICAL, ERROR, WARNING, INFO, DEBUG.
+
+---
+
+##### `retention`<sup>Optional</sup> <a name="retention" id="cdk-mwaa.LoggingConfigurationProperty.property.retention"></a>
+
+```typescript
+public readonly retention: RetentionDays;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.RetentionDays
+
+Specifies the retention period for the log group in Amazon CloudWatch Logs.
+
+Determines how long the logs should be kept before being automatically deleted.
 
 ---
 

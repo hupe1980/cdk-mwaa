@@ -1,5 +1,6 @@
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
+import * as logs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import * as mwaa from '../src';
 
@@ -33,6 +34,13 @@ export class MwaaExampleStack extends cdk.Stack {
       vpc: vpc,
       airflowVersion: '2.10.3',
       sizing: mwaa.Sizing.mw1Micro(),
+      loggingConfiguration: {
+        dagProcessingLogs: {
+          enabled: true,
+          logLevel: mwaa.LogLevel.INFO,
+          retention: logs.RetentionDays.ONE_WEEK,
+        },
+      },
     });
 
     environment.enableSecretsBackend();
