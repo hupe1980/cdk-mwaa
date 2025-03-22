@@ -284,8 +284,9 @@ export class Environment extends Construct {
    * @param options - The configuration options for Secrets Manager backend.
    */
   public enableSecretsBackend(options?: SecretsBackendOptions): void {
-    const defaultOptions = {
+    const defaultOptions: SecretsBackendOptions = {
       connectionsPrefix: 'airflow/connections',
+      connectionsLookupPattern: '^(?!aws_default$).*$',
       variablesPrefix: 'airflow/variables',
     };
 
