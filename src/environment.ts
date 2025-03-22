@@ -2,6 +2,7 @@ import { Lazy, Stack, Tags } from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as kms from 'aws-cdk-lib/aws-kms';
+import * as logs from 'aws-cdk-lib/aws-logs';
 import * as mwaa from 'aws-cdk-lib/aws-mwaa';
 import { Construct } from 'constructs';
 
@@ -108,11 +109,11 @@ export class Environment extends Construct {
   public readonly arn: string; // ARN of the MWAA environment
   public readonly celeryExecutorQueue: string; // ARN for Celery Executor queue
   public readonly databaseVpcEndpointService: string; // VPC endpoint for RDS database
-  public readonly dagProcessingLogsGroupArn: string; // ARN for DAG processing logs group
-  public readonly schedulerLogsGroupArn: string; // ARN for scheduler logs group
-  public readonly taskLogsGroupArn: string; // ARN for task logs group
-  public readonly webserverLogsGroupArn: string; // ARN for webserver logs group
-  public readonly workerLogsGroupArn: string; // ARN for worker logs group
+  public readonly dagProcessingLogsGroup: logs.ILogGroup; // Log group for DAG processing logs
+  public readonly schedulerLogsGroup: logs.ILogGroup; // Log group for scheduler logs
+  public readonly taskLogsGroup: logs.ILogGroup; // Log group for task logs
+  public readonly webserverLogsGroup: logs.ILogGroup; // Log group for webserver logs
+  public readonly workerLogsGroup: logs.ILogGroup; // Log group for worker logs
   public readonly webserverUrl: string; // URL for the web server
   public readonly webserverVpcEndpointService: string; // VPC endpoint for web server
 
@@ -258,16 +259,17 @@ export class Environment extends Construct {
     environment.node.addDependency(props.dagStorage);
     environment.node.addDependency(this.executionRole);
 
+
     // Assign environment properties
     this.name = props.name;
     this.arn = environment.attrArn;
     this.celeryExecutorQueue = environment.attrCeleryExecutorQueue;
     this.databaseVpcEndpointService = environment.attrDatabaseVpcEndpointService;
-    this.dagProcessingLogsGroupArn = environment.attrLoggingConfigurationDagProcessingLogsCloudWatchLogGroupArn;
-    this.schedulerLogsGroupArn = environment.attrLoggingConfigurationSchedulerLogsCloudWatchLogGroupArn;
-    this.taskLogsGroupArn = environment.attrLoggingConfigurationTaskLogsCloudWatchLogGroupArn;
-    this.webserverLogsGroupArn = environment.attrLoggingConfigurationWebserverLogsCloudWatchLogGroupArn;
-    this.workerLogsGroupArn = environment.attrLoggingConfigurationWorkerLogsCloudWatchLogGroupArn;
+    this.dagProcessingLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'DagProcessingLogsGroup', environment.attrLoggingConfigurationDagProcessingLogsCloudWatchLogGroupArn);
+    this.schedulerLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'SchedulerLogsGroup', environment.attrLoggingConfigurationSchedulerLogsCloudWatchLogGroupArn);
+    this.taskLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'TaskLogsGroup', environment.attrLoggingConfigurationTaskLogsCloudWatchLogGroupArn);
+    this.webserverLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'WebserverLogsGroup', environment.attrLoggingConfigurationWebserverLogsCloudWatchLogGroupArn);
+    this.workerLogsGroup = logs.LogGroup.fromLogGroupArn(this, 'WorkerLogsGroup', environment.attrLoggingConfigurationWorkerLogsCloudWatchLogGroupArn);
     this.webserverUrl = environment.attrWebserverUrl;
     this.webserverVpcEndpointService = environment.attrWebserverVpcEndpointService;
 

@@ -1240,15 +1240,15 @@ Any object.
 | <code><a href="#cdk-mwaa.Environment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#cdk-mwaa.Environment.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.celeryExecutorQueue">celeryExecutorQueue</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.Environment.property.dagProcessingLogsGroupArn">dagProcessingLogsGroupArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.property.dagProcessingLogsGroup">dagProcessingLogsGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.databaseVpcEndpointService">databaseVpcEndpointService</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.Environment.property.schedulerLogsGroupArn">schedulerLogsGroupArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.Environment.property.taskLogsGroupArn">taskLogsGroupArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.Environment.property.webserverLogsGroupArn">webserverLogsGroupArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.property.schedulerLogsGroup">schedulerLogsGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.property.taskLogsGroup">taskLogsGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.property.webserverLogsGroup">webserverLogsGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.webserverUrl">webserverUrl</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.Environment.property.webserverVpcEndpointService">webserverVpcEndpointService</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.Environment.property.workerLogsGroupArn">workerLogsGroupArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.Environment.property.workerLogsGroup">workerLogsGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
 
 ---
 
@@ -1284,13 +1284,13 @@ public readonly celeryExecutorQueue: string;
 
 ---
 
-##### `dagProcessingLogsGroupArn`<sup>Required</sup> <a name="dagProcessingLogsGroupArn" id="cdk-mwaa.Environment.property.dagProcessingLogsGroupArn"></a>
+##### `dagProcessingLogsGroup`<sup>Required</sup> <a name="dagProcessingLogsGroup" id="cdk-mwaa.Environment.property.dagProcessingLogsGroup"></a>
 
 ```typescript
-public readonly dagProcessingLogsGroupArn: string;
+public readonly dagProcessingLogsGroup: ILogGroup;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
 
 ---
 
@@ -1314,33 +1314,33 @@ public readonly name: string;
 
 ---
 
-##### `schedulerLogsGroupArn`<sup>Required</sup> <a name="schedulerLogsGroupArn" id="cdk-mwaa.Environment.property.schedulerLogsGroupArn"></a>
+##### `schedulerLogsGroup`<sup>Required</sup> <a name="schedulerLogsGroup" id="cdk-mwaa.Environment.property.schedulerLogsGroup"></a>
 
 ```typescript
-public readonly schedulerLogsGroupArn: string;
+public readonly schedulerLogsGroup: ILogGroup;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
 
 ---
 
-##### `taskLogsGroupArn`<sup>Required</sup> <a name="taskLogsGroupArn" id="cdk-mwaa.Environment.property.taskLogsGroupArn"></a>
+##### `taskLogsGroup`<sup>Required</sup> <a name="taskLogsGroup" id="cdk-mwaa.Environment.property.taskLogsGroup"></a>
 
 ```typescript
-public readonly taskLogsGroupArn: string;
+public readonly taskLogsGroup: ILogGroup;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
 
 ---
 
-##### `webserverLogsGroupArn`<sup>Required</sup> <a name="webserverLogsGroupArn" id="cdk-mwaa.Environment.property.webserverLogsGroupArn"></a>
+##### `webserverLogsGroup`<sup>Required</sup> <a name="webserverLogsGroup" id="cdk-mwaa.Environment.property.webserverLogsGroup"></a>
 
 ```typescript
-public readonly webserverLogsGroupArn: string;
+public readonly webserverLogsGroup: ILogGroup;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
 
 ---
 
@@ -1364,13 +1364,13 @@ public readonly webserverVpcEndpointService: string;
 
 ---
 
-##### `workerLogsGroupArn`<sup>Required</sup> <a name="workerLogsGroupArn" id="cdk-mwaa.Environment.property.workerLogsGroupArn"></a>
+##### `workerLogsGroup`<sup>Required</sup> <a name="workerLogsGroup" id="cdk-mwaa.Environment.property.workerLogsGroup"></a>
 
 ```typescript
-public readonly workerLogsGroupArn: string;
+public readonly workerLogsGroup: ILogGroup;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
 
 ---
 
