@@ -3,7 +3,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'hupe1980',
   authorAddress: 'frankhuebner1980@gmail.com',
   license: 'MIT',
-  cdkVersion: '2.182.0',
+  cdkVersion: '2.185.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.7.0',
   name: 'cdk-mwaa',
