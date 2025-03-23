@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
+import * as logs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
 /**
@@ -17,6 +18,9 @@ export interface DeployOptions {
 
   /** Whether to remove outdated file versions. */
   readonly prune?: boolean;
+
+   /** Log retention settings for the deployment. */
+   readonly logRetention?: logs.RetentionDays;
 }
 
 /**
@@ -160,16 +164,17 @@ export class DagStorage extends Construct {
   /**
    * Deploys DAG files to the S3 bucket if a local path is specified.
    */
-  private deployDags(config: DagsOptions | undefined): void {
-    if (config?.localPath) {
+  private deployDags(opts: DagsOptions | undefined): void {
+    if (opts?.localPath) {
       new s3deploy.BucketDeployment(this, 'DagsDeployment', {
-        sources: [s3deploy.Source.asset(config.localPath, {
-          exclude: config.deployOptions?.exclude,
+        sources: [s3deploy.Source.asset(opts.localPath, {
+          exclude: opts.deployOptions?.exclude,
         })],
         destinationBucket: this.bucket,
-        destinationKeyPrefix: config.s3Path,
-        retainOnDelete: config.deployOptions?.retainOnDelete,
-        prune: config.deployOptions?.prune,
+        destinationKeyPrefix: opts.s3Path,
+        retainOnDelete: opts.deployOptions?.retainOnDelete,
+        prune: opts.deployOptions?.prune,
+        logRetention: opts.deployOptions?.logRetention,
       });
     }
   }
@@ -177,16 +182,17 @@ export class DagStorage extends Construct {
   /**
    * Deploys configuration files to the S3 bucket if a local path is specified.
    */
-  private deployConfigs(configs: ConfigsOptions | undefined): void {
-    if (configs?.localPath) {
+  private deployConfigs(opts: ConfigsOptions | undefined): void {
+    if (opts?.localPath) {
       new s3deploy.BucketDeployment(this, 'ConfigsDeployment', {
-        sources: [s3deploy.Source.asset(configs.localPath, {
-          exclude: configs.deployOptions?.exclude,
+        sources: [s3deploy.Source.asset(opts.localPath, {
+          exclude: opts.deployOptions?.exclude,
         })],
         destinationBucket: this.bucket,
-        destinationKeyPrefix: configs.s3Prefix,
-        retainOnDelete: configs.deployOptions?.retainOnDelete,
-        prune: configs.deployOptions?.prune,
+        destinationKeyPrefix: opts.s3Prefix,
+        retainOnDelete: opts.deployOptions?.retainOnDelete,
+        prune: opts.deployOptions?.prune,
+        logRetention: opts.deployOptions?.logRetention,
       });
     }
   }
