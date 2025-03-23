@@ -3980,6 +3980,7 @@ const deployOptions: DeployOptions = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk-mwaa.DeployOptions.property.exclude">exclude</a></code> | <code>string[]</code> | Patterns to exclude from deployment. |
+| <code><a href="#cdk-mwaa.DeployOptions.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Log retention settings for the deployment. |
 | <code><a href="#cdk-mwaa.DeployOptions.property.prune">prune</a></code> | <code>boolean</code> | Whether to remove outdated file versions. |
 | <code><a href="#cdk-mwaa.DeployOptions.property.retainOnDelete">retainOnDelete</a></code> | <code>boolean</code> | Whether to retain files upon stack deletion. |
 
@@ -3994,6 +3995,18 @@ public readonly exclude: string[];
 - *Type:* string[]
 
 Patterns to exclude from deployment.
+
+---
+
+##### `logRetention`<sup>Optional</sup> <a name="logRetention" id="cdk-mwaa.DeployOptions.property.logRetention"></a>
+
+```typescript
+public readonly logRetention: RetentionDays;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.RetentionDays
+
+Log retention settings for the deployment.
 
 ---
 
@@ -4085,6 +4098,7 @@ const environmentProps: EnvironmentProps = { ... }
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.airflowConfigurationOptions">airflowConfigurationOptions</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.endpointManagement">endpointManagement</a></code> | <code><a href="#cdk-mwaa.EndpointManagement">EndpointManagement</a></code> | *No description.* |
+| <code><a href="#cdk-mwaa.EnvironmentProps.property.executionRoleName">executionRoleName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.kmsKey">kmsKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.loggingConfiguration">loggingConfiguration</a></code> | <code><a href="#cdk-mwaa.LoggingConfiguration">LoggingConfiguration</a></code> | *No description.* |
 | <code><a href="#cdk-mwaa.EnvironmentProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | *No description.* |
@@ -4161,6 +4175,16 @@ public readonly endpointManagement: EndpointManagement;
 ```
 
 - *Type:* <a href="#cdk-mwaa.EndpointManagement">EndpointManagement</a>
+
+---
+
+##### `executionRoleName`<sup>Optional</sup> <a name="executionRoleName" id="cdk-mwaa.EnvironmentProps.property.executionRoleName"></a>
+
+```typescript
+public readonly executionRoleName: string;
+```
+
+- *Type:* string
 
 ---
 

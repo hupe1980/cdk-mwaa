@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
+import * as logs from 'aws-cdk-lib/aws-logs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
-import * as logs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
 /**
@@ -19,8 +19,8 @@ export interface DeployOptions {
   /** Whether to remove outdated file versions. */
   readonly prune?: boolean;
 
-   /** Log retention settings for the deployment. */
-   readonly logRetention?: logs.RetentionDays;
+  /** Log retention settings for the deployment. */
+  readonly logRetention?: logs.RetentionDays;
 }
 
 /**
