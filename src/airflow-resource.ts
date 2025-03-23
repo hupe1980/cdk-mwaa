@@ -66,5 +66,8 @@ export abstract class AirflowResourceBase extends Construct {
         ...props.properties,
       },
     });
+
+    // Add dependency on the MWAA environment
+    this.node.addDependency(props.environment);
   }
 }
