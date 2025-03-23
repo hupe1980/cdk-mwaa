@@ -19,23 +19,35 @@ export class MwaaExampleStack extends cdk.Stack {
       dagsOptions: {
         localPath: path.join(__dirname, 'dags'),
         s3Path: 'dags/',
+        deployOptions: {
+          logRetention: logs.RetentionDays.ONE_DAY,
+        },
       },
       configsOptions: {
         localPath: path.join(__dirname, 'configs'),
         s3Prefix: 'configs/',
         requirements: { name: 'requirements.txt' },
+        deployOptions: {
+          logRetention: logs.RetentionDays.ONE_DAY,
+        },
       },
     });
 
     // Create the MWAA environment
     const environment = new mwaa.Environment(this, 'MyMwaaEnvironment', {
       name: 'MyMwaaEnv',
+      executionRoleName: 'MyMwaaExecutionRole',
       dagStorage,
       vpc: vpc,
       airflowVersion: '2.10.3',
       sizing: mwaa.Sizing.mw1Micro(),
       loggingConfiguration: {
         dagProcessingLogs: {
+          enabled: true,
+          logLevel: mwaa.LogLevel.INFO,
+          retention: logs.RetentionDays.ONE_WEEK,
+        },
+        webserverLogs: {
           enabled: true,
           logLevel: mwaa.LogLevel.INFO,
           retention: logs.RetentionDays.ONE_WEEK,

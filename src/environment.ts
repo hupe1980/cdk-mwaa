@@ -92,6 +92,7 @@ export interface LoggingConfiguration {
  * Properties for creating an MWAA environment.
  */
 export interface EnvironmentProps {
+  readonly executionRoleName?: string; // Name of the IAM execution role
   readonly airflowVersion: string; // Version of Apache Airflow to use
   readonly airflowConfigurationOptions?: { [key: string]: any }; // Airflow configuration options
   readonly name: string; // The name of the MWAA environment
@@ -144,7 +145,7 @@ export class Environment extends Construct {
     };
 
     // Create the IAM execution role
-    this.executionRole = this.createExecutionRole(props.name, props.dagStorage.bucket.bucketArn, region, account);
+    this.executionRole = this.createExecutionRole(props, region, account);
 
     // Validate the weekly maintenance window start time
     const weeklyMaintenanceWindowStart = this.validateWeeklyMaintenanceWindowStart(props.weeklyMaintenanceWindowStart);
@@ -243,13 +244,13 @@ export class Environment extends Construct {
    * @param account - The AWS account ID.
    * @returns The IAM execution role.
    */
-  private createExecutionRole(name: string, bucketArn: string, region: string, account: string): iam.Role {
+  private createExecutionRole(props: EnvironmentProps, region: string, account: string): iam.Role {
     const executionPolicy = new iam.PolicyDocument({
       statements: [
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
           actions: ['airflow:PublishMetrics'],
-          resources: [`arn:aws:airflow:${region}:${account}:environment/${name}`],
+          resources: [`arn:aws:airflow:${region}:${account}:environment/${props.name}`],
         }),
         new iam.PolicyStatement({
           effect: iam.Effect.DENY,
@@ -259,7 +260,7 @@ export class Environment extends Construct {
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
           actions: ['s3:GetObject*', 's3:GetBucket*', 's3:List*'],
-          resources: [bucketArn, `${bucketArn}/*`],
+          resources: [props.dagStorage.bucket.bucketArn, `${props.dagStorage.bucket.bucketArn}/*`],
         }),
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
@@ -272,7 +273,7 @@ export class Environment extends Construct {
             'logs:GetLogGroupFields',
             'logs:GetQueryResults',
           ],
-          resources: [`arn:aws:logs:${region}:${account}:log-group:airflow-${name}-*`],
+          resources: [`arn:aws:logs:${region}:${account}:log-group:airflow-${props.name}-*`],
         }),
         new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
@@ -299,7 +300,7 @@ export class Environment extends Construct {
 
     const conditions = {
       ArnLike: {
-        'aws:SourceArn': `arn:aws:airflow:${region}:${account}:environment/${name}`,
+        'aws:SourceArn': `arn:aws:airflow:${region}:${account}:environment/${props.name}`,
       },
       StringEquals: {
         'aws:SourceAccount': account,
@@ -307,6 +308,7 @@ export class Environment extends Construct {
     };
 
     return new iam.Role(this, 'MWAAExecutionRole', {
+      roleName: props.executionRoleName,
       assumedBy: new iam.CompositePrincipal(
         new iam.ServicePrincipal('airflow.amazonaws.com', { conditions }),
         new iam.ServicePrincipal('airflow-env.amazonaws.com', { conditions }),
