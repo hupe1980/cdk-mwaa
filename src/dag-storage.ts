@@ -104,12 +104,40 @@ export class DagStorage extends Construct {
   /** S3 path for DAGs. */
   public readonly dagS3Path?: string;
 
-  /** S3 paths and object versions for configuration files. */
+  /**
+   * The S3 path where the plugins file is stored.
+   * This is the full path in the S3 bucket, including the prefix and file name.
+   */
   public readonly pluginsS3Path?: string;
+
+  /**
+   * The version ID of the plugins file in S3, if versioning is enabled for the bucket.
+   * This allows referencing a specific version of the plugins file.
+   */
   public readonly pluginsS3ObjectVersion?: string;
+
+  /**
+   * The S3 path where the requirements file is stored.
+   * This is the full path in the S3 bucket, including the prefix and file name.
+   */
   public readonly requirementsS3Path?: string;
+
+  /**
+   * The version ID of the requirements file in S3, if versioning is enabled for the bucket.
+   * This allows referencing a specific version of the requirements file.
+   */
   public readonly requirementsS3ObjectVersion?: string;
+
+  /**
+   * The S3 path where the startup script is stored.
+   * This is the full path in the S3 bucket, including the prefix and file name.
+   */
   public readonly startupScriptS3Path?: string;
+
+  /**
+   * The version ID of the startup script in S3, if versioning is enabled for the bucket.
+   * This allows referencing a specific version of the startup script.
+   */
   public readonly startupScriptS3ObjectVersion?: string;
 
   constructor(scope: Construct, id: string, props: DagStorageProps) {

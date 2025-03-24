@@ -963,12 +963,12 @@ Any object.
 | <code><a href="#cdk-mwaa.DagStorage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#cdk-mwaa.DagStorage.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.Bucket</code> | The S3 bucket storing DAGs, plugins, requirements, and startup scripts. |
 | <code><a href="#cdk-mwaa.DagStorage.property.dagS3Path">dagS3Path</a></code> | <code>string</code> | S3 path for DAGs. |
-| <code><a href="#cdk-mwaa.DagStorage.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.DagStorage.property.pluginsS3Path">pluginsS3Path</a></code> | <code>string</code> | S3 paths and object versions for configuration files. |
-| <code><a href="#cdk-mwaa.DagStorage.property.requirementsS3ObjectVersion">requirementsS3ObjectVersion</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.DagStorage.property.requirementsS3Path">requirementsS3Path</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptS3ObjectVersion">startupScriptS3ObjectVersion</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptS3Path">startupScriptS3Path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk-mwaa.DagStorage.property.pluginsS3ObjectVersion">pluginsS3ObjectVersion</a></code> | <code>string</code> | The version ID of the plugins file in S3, if versioning is enabled for the bucket. |
+| <code><a href="#cdk-mwaa.DagStorage.property.pluginsS3Path">pluginsS3Path</a></code> | <code>string</code> | The S3 path where the plugins file is stored. |
+| <code><a href="#cdk-mwaa.DagStorage.property.requirementsS3ObjectVersion">requirementsS3ObjectVersion</a></code> | <code>string</code> | The version ID of the requirements file in S3, if versioning is enabled for the bucket. |
+| <code><a href="#cdk-mwaa.DagStorage.property.requirementsS3Path">requirementsS3Path</a></code> | <code>string</code> | The S3 path where the requirements file is stored. |
+| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptS3ObjectVersion">startupScriptS3ObjectVersion</a></code> | <code>string</code> | The version ID of the startup script in S3, if versioning is enabled for the bucket. |
+| <code><a href="#cdk-mwaa.DagStorage.property.startupScriptS3Path">startupScriptS3Path</a></code> | <code>string</code> | The S3 path where the startup script is stored. |
 
 ---
 
@@ -1016,6 +1016,10 @@ public readonly pluginsS3ObjectVersion: string;
 
 - *Type:* string
 
+The version ID of the plugins file in S3, if versioning is enabled for the bucket.
+
+This allows referencing a specific version of the plugins file.
+
 ---
 
 ##### `pluginsS3Path`<sup>Optional</sup> <a name="pluginsS3Path" id="cdk-mwaa.DagStorage.property.pluginsS3Path"></a>
@@ -1026,7 +1030,9 @@ public readonly pluginsS3Path: string;
 
 - *Type:* string
 
-S3 paths and object versions for configuration files.
+The S3 path where the plugins file is stored.
+
+This is the full path in the S3 bucket, including the prefix and file name.
 
 ---
 
@@ -1038,6 +1044,10 @@ public readonly requirementsS3ObjectVersion: string;
 
 - *Type:* string
 
+The version ID of the requirements file in S3, if versioning is enabled for the bucket.
+
+This allows referencing a specific version of the requirements file.
+
 ---
 
 ##### `requirementsS3Path`<sup>Optional</sup> <a name="requirementsS3Path" id="cdk-mwaa.DagStorage.property.requirementsS3Path"></a>
@@ -1047,6 +1057,10 @@ public readonly requirementsS3Path: string;
 ```
 
 - *Type:* string
+
+The S3 path where the requirements file is stored.
+
+This is the full path in the S3 bucket, including the prefix and file name.
 
 ---
 
@@ -1058,6 +1072,10 @@ public readonly startupScriptS3ObjectVersion: string;
 
 - *Type:* string
 
+The version ID of the startup script in S3, if versioning is enabled for the bucket.
+
+This allows referencing a specific version of the startup script.
+
 ---
 
 ##### `startupScriptS3Path`<sup>Optional</sup> <a name="startupScriptS3Path" id="cdk-mwaa.DagStorage.property.startupScriptS3Path"></a>
@@ -1067,6 +1085,10 @@ public readonly startupScriptS3Path: string;
 ```
 
 - *Type:* string
+
+The S3 path where the startup script is stored.
+
+This is the full path in the S3 bucket, including the prefix and file name.
 
 ---
 
