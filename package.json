@@ -1,5 +1,6 @@
 {
   "name": "cdk-mwaa",
+  "description": "AWS CDK construct library for Amazon Managed Workflows for Apache Airflow (MWAA)",
   "repository": {
     "type": "git",
     "url": "https://github.com/hupe1980/cdk-mwaa.git"
@@ -68,7 +69,9 @@
     "constructs": "^10.0.5"
   },
   "keywords": [
-    "cdk"
+    "airflow",
+    "cdk",
+    "mwaa"
   ],
   "main": "lib/index.js",
   "license": "MIT",

@@ -2,6 +2,8 @@ import { awscdk } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'hupe1980',
   authorAddress: 'frankhuebner1980@gmail.com',
+  description: 'AWS CDK construct library for Amazon Managed Workflows for Apache Airflow (MWAA)',
+  keywords: ['cdk', 'mwaa', 'airflow'],
   license: 'MIT',
   cdkVersion: '2.185.0',
   defaultReleaseBranch: 'main',
